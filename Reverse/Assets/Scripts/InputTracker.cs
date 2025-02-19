@@ -32,6 +32,12 @@ public class InputTracker : MonoBehaviour
         
         activeComboHolder.Add(input);
         timeSinceLastInput = 0;
+        
+        //if the dict has a combo matching current, get it
+        if (comboTracker.ContainsKey(String.Join("", activeComboHolder)))
+        {
+            //combo exists so do something here
+        }
     }
     
     /// <summary>
