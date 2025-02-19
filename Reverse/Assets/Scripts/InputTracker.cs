@@ -6,11 +6,10 @@ public class InputTracker : MonoBehaviour
 {
 
     [SerializeField] private float comboTimeBetweenInputs = 1.0f;
+    
     private float timeSinceLastInput;
     Dictionary<string, float> comboTracker = new Dictionary<string, float>();
-
     private List<char> activeComboHolder = new List<char>();
-    private bool activeCombo = false;
 
     private void Start() => timeSinceLastInput = 0;
 
