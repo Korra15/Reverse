@@ -13,6 +13,9 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Image mainMenuBackground;
     [SerializeField] private Image mainMenuButtons;
 
+    [Header("Fade Panel")]
+    [SerializeField] private GameObject fadeScenePanel; 
+
     [Header("UI Buttons")]
     [SerializeField] private Button playButton;
     [SerializeField] private Button exitButton;
