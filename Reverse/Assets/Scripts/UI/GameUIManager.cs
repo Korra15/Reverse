@@ -16,7 +16,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private Button exitButton;
 
     [Header("PauseMenu UI")]
-    [SerializeField] private GameObject PauseMenu;
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] RectTransform pauseMenuRect;
     [SerializeField] float topPosY, middlePosY;
     [SerializeField] float tweenDuration;
@@ -46,13 +46,13 @@ public class GameUIManager : MonoBehaviour
         PauseMenuIntro();
         Time.timeScale = 0f;
         isPaused = true;
-        PauseMenu.SetActive(true);
+        pauseMenu.SetActive(true);
     }
 
     public async void ResumeGame()
     {
         await PauseMenuOutro();
-        PauseMenu.SetActive(false);
+        pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
     }
@@ -60,7 +60,7 @@ public class GameUIManager : MonoBehaviour
     public void PauseMenuIntro()
     {
         pauseMenuRect.DOAnchorPosY(middlePosY, tweenDuration).SetUpdate(true);
-        //PauseMenu.GetComponent<RectTransform>().DOAnchorPosY(middlePosY, tweenDuration).SetUpdate(true);
+        //pauseMenu.GetComponent<RectTransform>().DOAnchorPosY(middlePosY, tweenDuration).SetUpdate(true);
     }
 
     async Task PauseMenuOutro()

@@ -154,7 +154,7 @@ MonoBehaviour:
   resumeButton: {fileID: 1958276609}
   optionsButton: {fileID: 541242820}
   exitButton: {fileID: 1767753191}
-  PauseMenu: {fileID: 1666776816}
+  pauseMenu: {fileID: 1666776816}
   pauseMenuRect: {fileID: 1666776815}
   topPosY: 1080
   middlePosY: 0
