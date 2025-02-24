@@ -154,8 +154,6 @@ public class BobsTarget : MonoBehaviour
                     Mathf.Min(Mathf.Abs(errorToMin), Mathf.Abs(errorToMax));
             }
 
-            Debug.Log($"Cost[{i}]: {costs[i]}");
-
             if (costs[i] < maxCost)
             {
                 dodgeDis = testPos[i];

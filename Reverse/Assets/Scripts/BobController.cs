@@ -29,6 +29,7 @@ public class BobController : MonoBehaviour
     private float attackDuration;
     private float fleeDirection;
     private float[] attackBoundaries = new float[2];
+    private Collider2D attackCollider;
     private Vector3 dodgeTarget;
 
     [Header("Attack Properties")]
@@ -43,9 +44,9 @@ public class BobController : MonoBehaviour
     private Transform desiredPos;
     private Collider2D collider;
     private Rigidbody2D rigidbody;
-    
-    
-    //EVENT STUFF
+
+
+    #region EVENT STUFF
     private EventBinding<AttackEvents.RobAttackEvent> robAttackEventBinding;
 
     private void OnEnable()
@@ -58,8 +59,9 @@ public class BobController : MonoBehaviour
     }
 
     private void OnDisable() => EventBus<AttackEvents.RobAttackEvent>.Deregister(robAttackEventBinding);
+    #endregion
 
-
+    #region PROPERTY
     public float AttackDesire
     {
         get { return attackDesire; }
@@ -79,6 +81,7 @@ public class BobController : MonoBehaviour
             }
         }
     }
+    #endregion
 
 
     private void Awake()
@@ -93,6 +96,7 @@ public class BobController : MonoBehaviour
 
         desiredPos = rob.Find("Bob's target").transform;
     }
+
 
     private void Start()
     {
@@ -125,24 +129,25 @@ public class BobController : MonoBehaviour
                         weapons[i] = weaponTemp[i - 1];
                         weapons[i - 1] = weaponTemp[i];
 
-                        weapons[i].id = i;
-                        weapons[i - 1].id = i - 1;
-
                         isCorrectOrder = false;
                     }
                 }
             }
             while (!isCorrectOrder);
 
+            // Initialize current weapon.
             currentWeapon = weapons[0];
         }
 
+        // Initialize center of mass for rotation.
         rigidbody.centerOfMass = new Vector3(0, -1f, 0);
     }
 
 
     private void Update()
     {
+        // For temporary test only.
+        // Press 'A' to activate pre-defined attack.
         if (Input.GetKeyDown(KeyCode.A))
         {
             float[] boundaries = { attackBoundaryMin, attackBoundaryMax };
@@ -151,56 +156,83 @@ public class BobController : MonoBehaviour
         }
     }
 
+
     private void FixedUpdate()
     {
         ApplyDrivingForce();
         LimitSpeed();
     }
 
+
+    /// <summary>
+    /// Limit Bob's maximum speed.
+    /// </summary>
     private void LimitSpeed()
     {
-        if (rigidbody.velocity.x > maxSpeed)
+        // Speed limit is bigger when dodging (depending on familiarity).
+        float dodgeMult = 1;
+
+        if (isDodging)
+            dodgeMult = (1 + familiarity);
+
+        // Limit the speed.
+        if (rigidbody.velocity.x > maxSpeed * dodgeMult)
         {
-            rigidbody.velocity = new Vector3(maxSpeed, rigidbody.velocity.y, 0);
+            rigidbody.velocity = new Vector3(maxSpeed * dodgeMult, rigidbody.velocity.y, 0);
         }
-        else if (rigidbody.velocity.x < -maxSpeed)
+        else if (rigidbody.velocity.x < -maxSpeed * dodgeMult)
         {
-            rigidbody.velocity = new Vector3(-maxSpeed, rigidbody.velocity.y, 0);
+            rigidbody.velocity = new Vector3(-maxSpeed * dodgeMult, rigidbody.velocity.y, 0);
         }
     }
+
 
     private void ApplyDrivingForce()
     {
         Vector3 drivingForce = Vector3.zero;
 
+        // If Bob's in panic/attacking/animation state, do nothing.
         if (isPanic || isAttacking || isInAnimation)
         {
             return;
         }
+        // If Bob's in dodging state, add force towards the pre-calculated dodge target.
         else if (isDodging)
         {
             fleeDirection = Mathf.Sign(dodgeTarget.x - transform.position.x);
 
+            // Driving force
             drivingForce.x += fleeForceScale * fleeDirection;
+            // Random force to make driving force less efficient.
+            // Will be less influential as familiarity grows.
             drivingForce.x += randomForceScale * GaussianRandom(0, 0.5f) * (1 - familiarity);
         }
+        // If Bob's not in any state, add force towards the desired position (Bob's target).
         else
         {
+            // Driving force.
+            // Will be more influential as getting farther to desired position.
             drivingForce.x += driveForceScale * (desiredPos.position.x - transform.position.x);
+            // Random force to make driving force less efficient.
             drivingForce.x += randomForceScale * GaussianRandom(0, 0.5f);
         }
 
         rigidbody.AddForce(drivingForce);
     }
 
+
     /// <summary>
-    /// Input info of coming attack
+    /// Input info of coming attack. For temporary test only.
     /// </summary>
     /// <param name="attackBoundaries">The boundaries of the attack at any order (in world coord).</param>
     /// <param name="occurTimes">The number of times this attack has occurred.</param>
     /// <param name="duration">The duration of this attack (until the hitbox end)</param>
     public void AttackComing(float[] attackBoundaries, float occurTimes, float duration)
     {
+        // Operate only when Bob's in Rob is not already dodging.
+        if (isPanic || isDodging)
+            return;
+
         // Reset attack information.
         dodgeTarget = new Vector3(float.MaxValue, 0, 0);
         fleeDirection = 0;
@@ -220,9 +252,8 @@ public class BobController : MonoBehaviour
             return;
         }
 
-
         // If is in the range, read coming attack information.
-        familiarity = occurTimes / (occurTimes + 5f);
+        familiarity = occurTimes / (occurTimes + 2f);
         attackDuration = duration;
 
         // Compare distance of 2 boundaries. Possibly make mistake when unfamiliar.
@@ -246,27 +277,107 @@ public class BobController : MonoBehaviour
         StartCoroutine(UpdateDodgingState());
     }
 
+
     /// <summary>
-    /// Update dodging status. Simutaneous attacks are not considered.
+    /// Input info of coming attack (collider2D ver.).
+    /// </summary>
+    /// <param name="attackCollider">The collider of the coming attack.</param>
+    /// <param name="occurTimes">The number of times this attack has occurred.</param>
+    /// <param name="duration">The duration of this attack (until the hitbox end).</param>
+    public void AttackComing(Collider2D attackCollider, float occurTimes, float duration)
+    {
+        // Record the attack collider info.
+        // This is to check if the OnTriggerStay2D method is reacting to the right collider.
+        this.attackCollider = attackCollider;
+
+        // Store a familiarity according to attack occurred times.
+        familiarity = occurTimes / (occurTimes + 2f);
+        attackDuration = duration;
+    }
+
+
+    /// <summary>
+    /// Triggered when an Rob's attack range is activated and bob is in that range.
+    /// Will use the collider info to find a target position where Bob can dodge it (move outside the bounds).
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        // Operate only when Bob's in Rob's attack range and is not already dodging.
+        if (other != attackCollider || isPanic || isDodging)
+            return;
+
+        // Reset attack information.
+        dodgeTarget = new Vector3(float.MaxValue, 0, 0);
+        fleeDirection = 0;
+
+        // Calculate the attack boundaries.
+        attackBoundaries[0] = other.bounds.min.x - collider.bounds.extents.x;
+        attackBoundaries[1] = other.bounds.max.x + collider.bounds.extents.x;
+
+        // familiarity = ?
+        // attackDuration = ?
+
+        // Decide which boundary to head for.
+        // Start at a random order.
+        int randomOrder = UnityEngine.Random.Range(0, 2);
+        for (int i = randomOrder; i < randomOrder + 2; i++)
+        {
+            // Bob may make mistake by underestimating distance to current target.
+            // This is the underestimate multiplier.
+            float calculateError = (0.2f + 0.8f * UnityEngine.Random.Range(familiarity, 1));
+
+            // Compare the boundary with the existing target.
+            if (Mathf.Abs(transform.position.x - attackBoundaries[i % 2]) <
+                Mathf.Abs(transform.position.x - dodgeTarget.x) * calculateError)
+            {
+                fleeDirection = Mathf.Sign(transform.position.x - attackBoundaries[i % 2]);
+                dodgeTarget.x = attackBoundaries[i % 2];
+            }
+        }
+
+        // Bob may make mistake to underestimate or overestimate the attack range.
+
+        // If the multiplier is negative, Bob will get hit due to underestimating the range.
+        // But for most of the time, Bob will overestimate it and move farther away.
+
+        // NOTE: when familiarity = 0.5f, negative rate is approximately 15.6%.
+        float estimateError = (Mathf.Exp(GaussianRandom(0, 1 - familiarity)) - 0.6f);
+        dodgeTarget.x += fleeDirection * dodgeErrorScale * estimateError;
+
+        Debug.Log("Dodge target: " + dodgeTarget.x);
+
+        // Update dodging state.
+        StartCoroutine(UpdateDodgingState());
+    }
+
+
+    /// <summary>
+    /// Update dodging status. Simutaneous attacks not considered.
     /// </summary>
     /// <returns></returns>
     private IEnumerator UpdateDodgingState()
     {
         isPanic = true;
         isDodging = false;
+
+        // Bob will panic to jump when an attack comes.
         rigidbody.velocity = Vector3.zero;
         rigidbody.AddForce(100f * Vector3.up);
 
+        // Bob will stay in panic state for a while, depending on his familiarity.
         yield return new WaitForSeconds(panicTime * (1 - familiarity));
 
         isPanic = false;
         isDodging = true;
 
-        yield return new WaitForSeconds(attackDuration - panicTime * (1 - familiarity));
+        // Bob will stop dodging after the attack is fully ended.
+        yield return new WaitForSeconds(attackDuration - panicTime * (1 - familiarity) + 0.05f);
 
         isPanic = false;
         isDodging = false;
     }
+
 
     private void TryAttack()
     {
