@@ -55,7 +55,7 @@ public class InputTracker : MonoBehaviour
         timeSinceLastInput = 0;
         
         //update the tracker for individual attacks
-        int attackNum = int.Parse(input);
+        /*int attackNum = int.Parse(input);
         individualAttackTracker[attackNum] += 1;
         
         //raise event with combo id and num times
@@ -63,36 +63,30 @@ public class InputTracker : MonoBehaviour
         {
             attackId = attackNum,
             attackTimes = individualAttackTracker[attackNum]
-        });
+        });*/
         
         
         string combo = String.Join("", activeComboHolder);
 
         //if the dict has a combo matching current, get it
-        if (comboTracker.ContainsKey(combo))
+        float comboNum;
+        if (comboTracker.TryGetValue(combo, out comboNum))
         {
-            //give bob the number of times combo has been used
-            EventBus<AttackEvents.RobAttackEvent>.Raise(new AttackEvents.RobAttackEvent()
-            {
-                 attackBoundaries = new []{-2f,2f},
-                 duration = 1.0f,
-                 occurTimes = comboTracker[combo]
-            });
-            
             Debug.Log("Had Combo in brain");
         }
         else
         {
-            //give zero
-            EventBus<AttackEvents.RobAttackEvent>.Raise(new AttackEvents.RobAttackEvent()
-            {
-                attackBoundaries = new []{-2f,2f},
-                duration = 1.0f,
-                occurTimes = 0
-                
-            });
+            comboNum = 0;
             Debug.Log("Combo  was not in brain");
         }
+        
+        //give bob the number of times combo has been used
+        EventBus<AttackEvents.RobAttackEvent>.Raise(new AttackEvents.RobAttackEvent()
+        {
+            attackBoundaries = new []{-2f,2f},
+            duration = 1.0f,
+            occurTimes = comboNum
+        });
     }
     
     /// <summary>
