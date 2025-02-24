@@ -43,6 +43,21 @@ public class BobController : MonoBehaviour
     private Transform desiredPos;
     private Collider2D collider;
     private Rigidbody2D rigidbody;
+    
+    
+    //EVENT STUFF
+    private EventBinding<AttackEvents.RobAttackEvent> robAttackEventBinding;
+
+    private void OnEnable()
+    {
+        robAttackEventBinding = new EventBinding<AttackEvents.RobAttackEvent>((robAttackData) =>
+        {
+            AttackComing(robAttackData.attackBoundaries, robAttackData.occurTimes, robAttackData.duration);
+        }); 
+        EventBus<AttackEvents.RobAttackEvent>.Register(robAttackEventBinding);
+    }
+
+    private void OnDisable() => EventBus<AttackEvents.RobAttackEvent>.Deregister(robAttackEventBinding);
 
 
     public float AttackDesire

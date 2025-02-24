@@ -49,18 +49,18 @@ public class InputTracker : MonoBehaviour
     /// <param name="input"></param>
     public void AddInput(string input)
     {
+        //clear combo if taken too long to start new one
         if(activeComboHolder.Count >= 3)  activeComboHolder.Clear();
         
+        //add to combo and reset time
         activeComboHolder.Add(input);
         timeSinceLastInput = 0;
         
         //update the tracker for individual attacks
         int attackNum = int.Parse(input);
-        
         individualAttackTracker.TryAdd(attackNum, 0);
         individualAttackTracker[attackNum] += 1;
-        Debug.Log(individualAttackTracker[attackNum]);
-        
+
         //raise event with combo id and num times
         EventBus<AttackEvents.BobDesiredPositionUpdateAttackEvent>.Raise(new AttackEvents.BobDesiredPositionUpdateAttackEvent()
         {

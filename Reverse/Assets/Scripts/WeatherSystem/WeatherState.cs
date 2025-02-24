@@ -18,17 +18,19 @@ namespace Weather
         private EventBinding<CycleWeather> weatherCycleEvent;
 
         [SerializeField] private WeatherParameters[] weatherStateOrder;
+        
+        private void OnEnable()
+        {
+            weatherCycleEvent = new EventBinding<CycleWeather>(CycleWeatherParameters);
+            EventBus<CycleWeather>.Register(weatherCycleEvent);
+        }
 
-        private void Awake() => weatherCycleEvent = new EventBinding<CycleWeather>(CycleWeatherParameters);
-
-        private void OnEnable() => EventBus<CycleWeather>.Register(weatherCycleEvent);
         private void OnDisable() => EventBus<CycleWeather>.Deregister(weatherCycleEvent);
 
         private void Start()
         {
             currentStateIndex = -1;
             CycleWeatherParameters();
-            
         }
 
         public void CycleWeatherParameters()

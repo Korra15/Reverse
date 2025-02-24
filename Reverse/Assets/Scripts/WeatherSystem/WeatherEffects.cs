@@ -13,11 +13,7 @@ public class WeatherEffects : MonoBehaviour
     private WeatherParameters currentEffectParameters;
     private WeatherParameters targetEffectParameters;
 
-    private void OnEnable() => EventBus<WeatherChanged>.Register(weatherChangedEventBinding);
-    
-    private void OnDisable() => EventBus<WeatherChanged>.Deregister(weatherChangedEventBinding);
-    
-    private void Awake()
+    private void OnEnable()
     {
         //weatherParticles = GetComponent<ParticleSystem>();
         weatherChangedEventBinding = new EventBinding<WeatherChanged>((weatherChanged) =>
@@ -29,8 +25,14 @@ public class WeatherEffects : MonoBehaviour
             
             StartCoroutine(SetWeatherEffect(weatherChanged.WeatherParameters));
         });
-        targetEffectParameters = ScriptableObject.CreateInstance<WeatherParameters>();
+        
+        EventBus<WeatherChanged>.Register(weatherChangedEventBinding);
     }
+
+    private void OnDisable() => EventBus<WeatherChanged>.Deregister(weatherChangedEventBinding);
+    
+    private void Awake() => targetEffectParameters = ScriptableObject.CreateInstance<WeatherParameters>();
+    
 
     public IEnumerator SetWeatherEffect(WeatherParameters parameters)
     {

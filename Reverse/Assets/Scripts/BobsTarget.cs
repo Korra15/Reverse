@@ -19,6 +19,20 @@ public class BobsTarget : MonoBehaviour
     Transform rob;
     private BobController bobController;
 
+    
+    //EVENT STUFF
+    private EventBinding<AttackEvents.BobDesiredPositionUpdateAttackEvent> robAttackEventBinding;
+
+    private void OnEnable()
+    {
+        robAttackEventBinding = new EventBinding<AttackEvents.BobDesiredPositionUpdateAttackEvent>((robAttackData) =>
+        {
+            UpdateAttackInfo(robAttackData.attackId, robAttackData.attackTimes);
+        }); 
+        EventBus<AttackEvents.BobDesiredPositionUpdateAttackEvent>.Register(robAttackEventBinding);
+    }
+
+    private void OnDisable() => EventBus<AttackEvents.BobDesiredPositionUpdateAttackEvent>.Deregister(robAttackEventBinding);
 
     private void Awake()
     {
