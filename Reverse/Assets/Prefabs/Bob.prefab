@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8463629621199469243}
   - component: {fileID: 7765541648700226092}
   - component: {fileID: 3508914007453420221}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,11 @@ MonoBehaviour:
   panicTime: 0.5
   dodgeErrorScale: 0.5
   fleeForceScale: 10
-  desiredPos: {fileID: 0}
+  weapons: []
+  attackDesire: 0
+  attackCooldown: 0
+  attackTimer: 0
+  rob: {fileID: 0}
 --- !u!50 &7765541648700226092
 Rigidbody2D:
   serializedVersion: 4

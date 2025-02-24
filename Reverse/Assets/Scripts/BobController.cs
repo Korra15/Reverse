@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,26 +31,52 @@ public class BobController : MonoBehaviour
     private float[] attackBoundaries = new float[2];
     private Vector3 dodgeTarget;
 
+    [Header("Attack Properties")]
+    [SerializeField] private Weapon[] weapons;
+    [SerializeField] private float attackDesire;
+    [SerializeField] private float attackCooldown;
+    [SerializeField] private float attackTimer;
+    private Weapon currentWeapon;
+
     [Header("References")]
-    [SerializeField] private Transform desiredPos;
-    //[SerializeField] private Transform rob;
+    [SerializeField] private Transform rob;
+    private Transform desiredPos;
     private Collider2D collider;
     private Rigidbody2D rigidbody;
+
+
+    public float AttackDesire
+    {
+        get { return attackDesire; }
+    }
+
+    public float CurrentWeaponRange
+    {
+        get
+        {
+            if (currentWeapon != null)
+            {
+                return currentWeapon.range;
+            }
+            else
+            {
+                return 0f;
+            }
+        }
+    }
+
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
 
-        if (desiredPos == null)
+        if (rob == null)
         {
-            desiredPos = GameObject.Find("Bob's target").transform;
+            rob = GameObject.Find("Rob").transform;
         }
 
-        //if (rob == null)
-        //{
-        //    rob = GameObject.Find("Rob").transform;
-        //}
+        desiredPos = rob.Find("Bob's target").transform;
     }
 
     private void Start()
@@ -63,6 +90,37 @@ public class BobController : MonoBehaviour
         attackDuration = 0;
         fleeDirection = 0;
         dodgeTarget = new Vector3(float.MaxValue, 0, 0);
+
+        attackTimer = 0;
+
+        if (weapons.Length != 0)
+        {
+            // Order the weapon according to attack range order.
+            bool isCorrectOrder;
+            Weapon[] weaponTemp = weapons;
+
+            do
+            {
+                isCorrectOrder = true;
+
+                for (int i = 1; i < weapons.Length; i++)
+                {
+                    if (weapons[i].range < weapons[i - 1].range)
+                    {
+                        weapons[i] = weaponTemp[i - 1];
+                        weapons[i - 1] = weaponTemp[i];
+
+                        weapons[i].id = i;
+                        weapons[i - 1].id = i - 1;
+
+                        isCorrectOrder = false;
+                    }
+                }
+            }
+            while (!isCorrectOrder);
+
+            currentWeapon = weapons[0];
+        }
 
         rigidbody.centerOfMass = new Vector3(0, -1f, 0);
     }
@@ -78,13 +136,11 @@ public class BobController : MonoBehaviour
         }
     }
 
-
     private void FixedUpdate()
     {
         ApplyDrivingForce();
         LimitSpeed();
     }
-
 
     private void LimitSpeed()
     {
@@ -97,7 +153,6 @@ public class BobController : MonoBehaviour
             rigidbody.velocity = new Vector3(-maxSpeed, rigidbody.velocity.y, 0);
         }
     }
-
 
     private void ApplyDrivingForce()
     {
@@ -157,11 +212,11 @@ public class BobController : MonoBehaviour
 
         // Compare distance of 2 boundaries. Possibly make mistake when unfamiliar.
         // Start at a random order.
-        int randomOrder = Random.Range(0, 2);
+        int randomOrder = UnityEngine.Random.Range(0, 2);
         for (int i = randomOrder; i < randomOrder + 2; i++)
         {
             if (Mathf.Abs(errors[i % 2]) <
-                Mathf.Abs(transform.position.x - dodgeTarget.x) * (0.2f + 0.8f * Random.Range(familiarity, 1)))
+                Mathf.Abs(transform.position.x - dodgeTarget.x) * (0.2f + 0.8f * UnityEngine.Random.Range(familiarity, 1)))
             {
                 fleeDirection = Mathf.Sign(errors[i % 2]);
                 dodgeTarget.x = this.attackBoundaries[i % 2];
@@ -198,6 +253,11 @@ public class BobController : MonoBehaviour
         isDodging = false;
     }
 
+    private void TryAttack()
+    {
+
+    }
+
 
     #region Help Functions
     /// <summary>
@@ -208,12 +268,38 @@ public class BobController : MonoBehaviour
     /// <returns></returns>
     public static float GaussianRandom(float mean, float stdDev)
     {
-        float u1 = 1.0f - Random.Range(0, 1f);
-        float u2 = 1.0f - Random.Range(0, 1f);
+        float u1 = 1.0f - UnityEngine.Random.Range(0, 1f);
+        float u2 = 1.0f - UnityEngine.Random.Range(0, 1f);
 
         float z = Mathf.Sqrt(-2.0f * Mathf.Log(u1)) * Mathf.Cos(2.0f * Mathf.PI * u2);
 
         return mean + stdDev * z;
     }
     #endregion
+}
+
+
+[Serializable]
+public class Weapon
+{
+    public string name;
+    public int id;
+    public bool isOwned = false;
+    public float range;
+    public float damage;
+
+    private float desire = 0;
+
+    public void WantIt()
+    {
+        desire += 20;
+    }
+
+    public void GetWeapon()
+    {
+        if (desire >= 100)
+        {
+            isOwned = true;
+        }
+    }
 }
