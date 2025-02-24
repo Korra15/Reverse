@@ -55,15 +55,18 @@ public class InputTracker : MonoBehaviour
         timeSinceLastInput = 0;
         
         //update the tracker for individual attacks
-        /*int attackNum = int.Parse(input);
+        int attackNum = int.Parse(input);
+        
+        individualAttackTracker.TryAdd(attackNum, 0);
         individualAttackTracker[attackNum] += 1;
+        Debug.Log(individualAttackTracker[attackNum]);
         
         //raise event with combo id and num times
         EventBus<AttackEvents.BobDesiredPositionUpdateAttackEvent>.Raise(new AttackEvents.BobDesiredPositionUpdateAttackEvent()
         {
             attackId = attackNum,
             attackTimes = individualAttackTracker[attackNum]
-        });*/
+        });
         
         
         string combo = String.Join("", activeComboHolder);
