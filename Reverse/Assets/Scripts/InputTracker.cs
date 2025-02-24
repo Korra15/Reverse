@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class InputTracker : MonoBehaviour
@@ -9,7 +10,8 @@ public class InputTracker : MonoBehaviour
     
     private float timeSinceLastInput;
     Dictionary<string, float> comboTracker = new Dictionary<string, float>();
-    private List<char> activeComboHolder = new List<char>();
+    private Dictionary<int, int> individualAttackTracker = new Dictionary<int, int>();
+    private List<string> activeComboHolder = new List<string>();
 
     private void Start() => timeSinceLastInput = 0;
 
@@ -24,15 +26,15 @@ public class InputTracker : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            AddInput('1');
+            AddInput("1");
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            AddInput('2');
+            AddInput("2");
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            AddInput('3');
+            AddInput("3");
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
@@ -45,26 +47,51 @@ public class InputTracker : MonoBehaviour
     /// Stores an input, will store a combo if the time has expired
     /// </summary>
     /// <param name="input"></param>
-    public void AddInput(Char input)
+    public void AddInput(string input)
     {
         if(activeComboHolder.Count >= 3)  activeComboHolder.Clear();
         
         activeComboHolder.Add(input);
         timeSinceLastInput = 0;
-
-
+        
+        //update the tracker for individual attacks
+        int attackNum = int.Parse(input);
+        individualAttackTracker[attackNum] += 1;
+        
+        //raise event with combo id and num times
+        EventBus<AttackEvents.BobDesiredPositionUpdateAttackEvent>.Raise(new AttackEvents.BobDesiredPositionUpdateAttackEvent()
+        {
+            attackId = attackNum,
+            attackTimes = individualAttackTracker[attackNum]
+        });
+        
+        
         string combo = String.Join("", activeComboHolder);
 
         //if the dict has a combo matching current, get it
         if (comboTracker.ContainsKey(combo))
         {
             //give bob the number of times combo has been used
-            Debug.Log("Had Combo tracked");
+            EventBus<AttackEvents.RobAttackEvent>.Raise(new AttackEvents.RobAttackEvent()
+            {
+                 attackBoundaries = new []{-2f,2f},
+                 duration = 1.0f,
+                 occurTimes = comboTracker[combo]
+            });
+            
+            Debug.Log("Had Combo in brain");
         }
         else
         {
             //give zero
-            Debug.Log("Combo  was Untrackked");
+            EventBus<AttackEvents.RobAttackEvent>.Raise(new AttackEvents.RobAttackEvent()
+            {
+                attackBoundaries = new []{-2f,2f},
+                duration = 1.0f,
+                occurTimes = 0
+                
+            });
+            Debug.Log("Combo  was not in brain");
         }
     }
     
@@ -78,7 +105,6 @@ public class InputTracker : MonoBehaviour
 
         if (comboTracker.ContainsKey(combo)) comboTracker[combo]++;
         else comboTracker.Add(combo, 1);
-        
 
         activeComboHolder.Clear();
         timeSinceLastInput = 0;
