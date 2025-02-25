@@ -270,15 +270,9 @@ MonoBehaviour:
   attacks:
   - id: 1
     occurTimes: 15
-    minRange: 0
-    maxRange: 2
+    collider: {fileID: 0}
   - id: 2
-    occurTimes: 15
-    minRange: 1.5
-    maxRange: 4
-  - id: 3
     occurTimes: 1
-    minRange: 3
-    maxRange: 6
+    collider: {fileID: 0}
   maxCost: 0.3
   bob: {fileID: 0}
