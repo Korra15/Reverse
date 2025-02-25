@@ -178,7 +178,7 @@ public class BobController : MonoBehaviour
         float dodgeMult = 1;
 
         if (isDodging)
-            dodgeMult = (1 + familiarity);
+            dodgeMult = (1 + 2 * familiarity);
 
         // Limit the speed.
         if (rigidbody.velocity.x > maxSpeed * dodgeMult)

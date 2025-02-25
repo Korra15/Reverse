@@ -75,7 +75,7 @@ public class RobBasics : MonoBehaviour
         }
 
         //move left
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.localScale = new Vector2(1, 1);
             animator.SetTrigger("trRun");
@@ -83,7 +83,7 @@ public class RobBasics : MonoBehaviour
         }
 
         //move right
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             animator.SetTrigger("trRun");
             transform.localScale = new Vector2(-1, 1);
@@ -91,7 +91,7 @@ public class RobBasics : MonoBehaviour
         }
 
         //stop left
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A))
         {
             animator.ResetTrigger("trRun");
             animator.SetTrigger("trIdle");
@@ -99,7 +99,7 @@ public class RobBasics : MonoBehaviour
         }
 
         //stop right
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D))
         {
             animator.ResetTrigger("trRun");
             animator.SetTrigger("trIdle");
