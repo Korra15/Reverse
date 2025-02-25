@@ -19,10 +19,15 @@ public class InputTracker : MonoBehaviour
     {
         timeSinceLastInput += Time.deltaTime;
 
-        if (timeSinceLastInput > comboTimeBetweenInputs && activeComboHolder.Count > 0)  activeComboHolder.Clear();
+        if (timeSinceLastInput > comboTimeBetweenInputs && activeComboHolder.Count > 0)
+        {
+            activeComboHolder.Clear();
+            //TEMP
+            StoreCombo();
+        }
     }
 
-    private void LateUpdate()
+    /*private void LateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -41,7 +46,7 @@ public class InputTracker : MonoBehaviour
             Debug.Log("Killed Bob");
             StoreCombo();
         }
-    }
+    }*/
 
     /// <summary>
     /// Stores an input, will store a combo if the time has expired
@@ -50,7 +55,12 @@ public class InputTracker : MonoBehaviour
     public void AddInput(string input)
     {
         //clear combo if taken too long to start new one
-        if(activeComboHolder.Count >= 3)  activeComboHolder.Clear();
+        if (activeComboHolder.Count >= 3)
+        {
+            activeComboHolder.Clear();
+            //TEMP
+            StoreCombo();
+        }
         
         //add to combo and reset time
         activeComboHolder.Add(input);
