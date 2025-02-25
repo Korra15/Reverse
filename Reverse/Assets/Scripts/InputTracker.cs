@@ -52,7 +52,7 @@ public class InputTracker : MonoBehaviour
     /// Stores an input, will store a combo if the time has expired
     /// </summary>
     /// <param name="input"></param>
-    public void AddInput(string input)
+    public void AddInput(string inputId, Collider2D attackCollider, float duration)
     {
         //clear combo if taken too long to start new one
         if (activeComboHolder.Count >= 3)
@@ -63,11 +63,11 @@ public class InputTracker : MonoBehaviour
         }
         
         //add to combo and reset time
-        activeComboHolder.Add(input);
+        activeComboHolder.Add(inputId);
         timeSinceLastInput = 0;
         
         //update the tracker for individual attacks
-        int attackNum = int.Parse(input);
+        int attackNum = int.Parse(inputId);
         individualAttackTracker.TryAdd(attackNum, 0);
         individualAttackTracker[attackNum] += 1;
 
@@ -96,8 +96,8 @@ public class InputTracker : MonoBehaviour
         //give bob the number of times combo has been used
         EventBus<AttackEvents.RobAttackEvent>.Raise(new AttackEvents.RobAttackEvent()
         {
-            attackBoundaries = new Collider2D(),
-            duration = 1.0f,
+            attackBoundaries = attackCollider,
+            duration = duration,
             occurTimes = comboNum
         });
     }
