@@ -50,6 +50,8 @@ public class BobsTarget : MonoBehaviour
         closestRange = 0;
         farthestRange = 0;
 
+        attacks = rob.GetComponent<RobBasics>().attacks;
+
         if (attacks.Length != 0)
         {
             // Order the attacks according to minimum range order.
@@ -178,38 +180,6 @@ public class BobsTarget : MonoBehaviour
                 attack.occurTimes = occurTimes;
 
             attackTotalCount += attack.occurTimes;
-        }
-    }
-}
-
-
-[Serializable]
-public class Attack
-{
-    public int id;
-    public float occurTimes;
-    public Collider2D collider;
-
-
-    public float MinRange
-    {
-        get
-        {
-            float localX = Mathf.Abs(collider.transform.localPosition.x);
-            float extentX = collider.bounds.extents.x;
-
-            return Mathf.Max(0, localX - extentX);                
-        } 
-    }
-
-    public float MaxRange
-    {
-        get
-        {
-            float localX = Mathf.Abs(collider.transform.localPosition.x);
-            float extentX = collider.bounds.extents.x;
-
-            return Mathf.Max(0, localX + extentX);
         }
     }
 }

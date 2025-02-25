@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 323444564}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -496,14 +496,6 @@ PrefabInstance:
       propertyPath: bob
       value: 
       objectReference: {fileID: 538397703}
-    - target: {fileID: 854957780991605698, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: attacks.Array.data[0].collider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 854957780991605698, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: attacks.Array.data[1].collider
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3622673147349476841, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_Name
       value: Rob
@@ -565,17 +557,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bob
       objectReference: {fileID: 0}
-    - target: {fileID: 2190521303587719411, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
-      propertyPath: m_TagString
-      value: Bob
-      objectReference: {fileID: 0}
     - target: {fileID: 3834615349398674477, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.08
       objectReference: {fileID: 0}
     - target: {fileID: 3834615349398674477, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.53
+      value: -1.27
       objectReference: {fileID: 0}
     - target: {fileID: 3834615349398674477, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: m_LocalPosition.z
@@ -614,17 +602,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1684559203}
     - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: maxSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: testCollider
       value: 
       objectReference: {fileID: 2047795421}
-    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
-      propertyPath: dodgeErrorScale
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
-      propertyPath: attackOccurTimes
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
