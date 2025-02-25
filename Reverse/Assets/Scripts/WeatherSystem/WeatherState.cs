@@ -10,13 +10,18 @@ namespace Weather
         Sunny,
         LightRain,
         Rainy,
-        Stormy
+        RainStorm,
+        LightSnow,
+        Snowy,
+        SnowStorm
+
     }
     public class WeatherState : MonoBehaviour
     {
         private int currentStateIndex;
         private EventBinding<CycleWeather> weatherCycleEvent;
 
+        //array of weather objects to call from in order
         [SerializeField] private WeatherParameters[] weatherStateOrder;
         
         private void OnEnable()
@@ -33,6 +38,9 @@ namespace Weather
             CycleWeatherParameters();
         }
 
+        /// <summary>
+        /// Cycles the weather to the next weather in the list
+        /// </summary>
         public void CycleWeatherParameters()
         {
             Debug.Log("CYCLE");

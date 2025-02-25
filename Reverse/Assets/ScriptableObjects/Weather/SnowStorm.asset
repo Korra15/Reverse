@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76645a2f01f5e7144ba05bad23e61b6b, type: 3}
-  m_Name: HeavySnow
+  m_Name: SnowStorm
   m_EditorClassIdentifier: 
-  weatherState: 1
+  weatherState: 6
   maxParticles: 100000
   emissionRate: 1000
   gravityModifier: 0

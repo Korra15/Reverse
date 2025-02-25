@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76645a2f01f5e7144ba05bad23e61b6b, type: 3}
   m_Name: Snow
   m_EditorClassIdentifier: 
-  weatherState: 1
+  weatherState: 5
   maxParticles: 500
   emissionRate: 250
   gravityModifier: 0
