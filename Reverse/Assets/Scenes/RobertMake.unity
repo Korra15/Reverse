@@ -130,6 +130,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 854957780991605698, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[0].collider
+      value: 
+      objectReference: {fileID: 1230476544}
+    - target: {fileID: 854957780991605698, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[1].collider
+      value: 
+      objectReference: {fileID: 1204933844}
     - target: {fileID: 3622673147349476841, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_Name
       value: Rob
@@ -177,10 +185,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3622673147349476841, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 942442751}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
 --- !u!1 &629158685
 GameObject:
@@ -274,28 +279,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &942442745 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3622673147349476841, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+--- !u!61 &1204933844 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2221378267564525537, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
   m_PrefabInstance: {fileID: 224940880}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &942442751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+--- !u!61 &1230476544 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5194192737745853761, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+  m_PrefabInstance: {fileID: 224940880}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942442745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 850e4da268aee5242973324dae9878e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  moveSpd: 0
-  meleeBox: {fileID: 0}
-  rangeBox: {fileID: 0}
-  aoeBox: {fileID: 0}
 --- !u!1 &1593701464
 GameObject:
   m_ObjectHideFlags: 0

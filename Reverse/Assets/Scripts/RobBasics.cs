@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class RobBasics : MonoBehaviour
 {
+    //variables
+    //rob values
     public int health;
     public int moveSpd;
+
+    //box colliders
     public BoxCollider2D meleeBox;
     public BoxCollider2D rangeBox;
     public BoxCollider2D aoeBox;
+
+    //bools
+    private bool isAttacking;
+
+    //animator
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         health = 20;
         moveSpd = 2;
+        isAttacking = false;
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -35,6 +47,7 @@ public class RobBasics : MonoBehaviour
         //move left
         if (Input.GetKey(KeyCode.A))
         {
+            animator.SetTrigger("trRun");
             GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpd, 0);
         }
 
@@ -47,6 +60,7 @@ public class RobBasics : MonoBehaviour
         //stop left
         if (Input.GetKeyUp(KeyCode.A))
         {
+            animator.SetTrigger("trIdle");
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
 
@@ -59,6 +73,7 @@ public class RobBasics : MonoBehaviour
         //attack 1
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
+            animator.SetTrigger("trMelee");
             AttackMelee();
         }
 
@@ -91,5 +106,12 @@ public class RobBasics : MonoBehaviour
     void AttackAoE()
     {
 
+    }
+
+    public IEnumerator Attacking()
+    {
+        yield return new WaitForSeconds(2);
+
+        isAttacking = false;
     }
 }
