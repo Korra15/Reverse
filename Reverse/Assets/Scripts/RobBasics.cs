@@ -155,6 +155,7 @@ public class RobBasics : MonoBehaviour
         isAttacking = false;
     }
 
+    //below functions are redundant and unnecessary now, going to leave them temporarily anyways
     //melee attack functionality, called in InputCheck() (attack1)
     void AttackMelee()
     {
