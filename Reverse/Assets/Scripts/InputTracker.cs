@@ -86,7 +86,7 @@ public class InputTracker : MonoBehaviour
         //give bob the number of times combo has been used
         EventBus<AttackEvents.RobAttackEvent>.Raise(new AttackEvents.RobAttackEvent()
         {
-            attackBoundaries = new []{-2f,2f},
+            attackBoundaries = new Collider2D(),
             duration = 1.0f,
             occurTimes = comboNum
         });

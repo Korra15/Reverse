@@ -12,7 +12,7 @@ public class AttackEvents : MonoBehaviour
     //Event that updates the weatherEffects to use new parameters
     public struct RobAttackEvent : IEvent
     {
-        public float[] attackBoundaries;
+        public Collider2D attackBoundaries;
         public float occurTimes;
         public float duration;
     }
