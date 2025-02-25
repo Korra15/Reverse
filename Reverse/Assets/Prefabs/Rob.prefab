@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 42114393866002647}
   - component: {fileID: 2221378267564525537}
   - component: {fileID: 1058500609636345526}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Ranged Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  moveSpd: 2
+  moveSpd: 3
   attacks:
   - id: 1
     occurTimes: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
     timeBeforeHit: 2.6
     totalActionTime: 2.6
     collider: {fileID: 2221378267564525537}
-  inputTracker: {fileID: 0}
+  inputTracker: {fileID: 4962621982263941261}
   magnetoRock: {fileID: 7208167454362501038, guid: 65372a26c0db986469fb22886d1212de, type: 3}
   rockSpawnPos: {fileID: 1552691908272472975}
 --- !u!212 &4242065923880321316
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 4470779361413763020}
   - component: {fileID: 5194192737745853761}
   - component: {fileID: 8639285871452819791}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Melee Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,6 +569,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6075532972641614745, guid: 707999e5c31c341439fe844e677bb6f2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 854957780991605698}
+    - targetCorrespondingSourceObject: {fileID: 6075532972641614745, guid: 707999e5c31c341439fe844e677bb6f2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4962621982263941261}
   m_SourcePrefab: {fileID: 100100000, guid: 707999e5c31c341439fe844e677bb6f2, type: 3}
 --- !u!4 &5518973999950075367 stripped
 Transform:
@@ -607,3 +610,16 @@ MonoBehaviour:
     collider: {fileID: 2221378267564525537}
   maxCost: 0.3
   bob: {fileID: 0}
+--- !u!114 &4962621982263941261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7621074282572458772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4ab5dadc55ae9488ddda1b6d37f060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboTimeBetweenInputs: 3

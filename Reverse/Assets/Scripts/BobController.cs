@@ -388,7 +388,7 @@ public class BobController : MonoBehaviour
         isDodging = true;
 
         // Bob will stop dodging after the attack is fully ended.
-        yield return new WaitForSeconds(attackDuration - panicTime * (1 - familiarity) + 0.05f);
+        yield return new WaitForSeconds(attackDuration - panicTime * (1 - familiarity) - 0.05f);
 
         // If Bob is still in range at attack end, he will get hurt (red flash for now).
         if (isInRange)
@@ -396,6 +396,8 @@ public class BobController : MonoBehaviour
             isInRange = false;
             StartCoroutine(Blink());
         }
+
+        yield return new WaitForSeconds(0.1f);
 
         //testCollider.gameObject.SetActive(false);
         isPanic = false;

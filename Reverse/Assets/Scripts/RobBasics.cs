@@ -140,10 +140,10 @@ public class RobBasics : MonoBehaviour
         // Activate the corresponding attack object.
         attack.collider.gameObject.SetActive(true);
         // Give input tracker attack info.
-        //inputTracker.AddInput(attack.id.ToString(), attack.collider, attack.timeBeforeHit);
+        inputTracker.AddInput(attack.id.ToString(), attack.collider, attack.timeBeforeHit);
 
         // wait until hitbox ends.
-        yield return new WaitForSeconds(attack.timeBeforeHit);
+        yield return new WaitForSeconds(attack.timeBeforeHit + 0.05f);
 
         // Inactivate the attack object.
         attack.collider.gameObject.SetActive(false);

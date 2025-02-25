@@ -117,7 +117,8 @@ public class BobsTarget : MonoBehaviour
         }
 
         // The desired position is at the closer-to-bob side.
-        Vector3 desiredPos = desiredDis * rob.right * Mathf.Sign(bob.position.x - rob.position.x);
+        Vector3 desiredPos = desiredDis * rob.right * 
+            Mathf.Sign(bob.position.x - rob.position.x) * rob.transform.localScale.x;
 
         return desiredPos;
     }
