@@ -602,10 +602,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1684559203}
     - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
-      propertyPath: maxSpeed
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: testCollider
       value: 
       objectReference: {fileID: 2047795421}

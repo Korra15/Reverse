@@ -108,10 +108,10 @@ MonoBehaviour:
   isAttacking: 0
   isPanic: 0
   isDodging: 0
-  maxSpeed: 1.4
+  maxSpeed: 1.8
   driveForceScale: 1.5
   randomForceScale: 20
-  panicTime: 0.5
+  panicTime: 1
   dodgeErrorScale: 0.5
   fleeForceScale: 10
   weapons: []
