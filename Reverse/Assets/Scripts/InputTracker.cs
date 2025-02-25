@@ -8,7 +8,7 @@ public class InputTracker : MonoBehaviour
 
     [SerializeField] private float comboTimeBetweenInputs = 1.0f;
     
-    private float timeSinceLastInput;
+    private float timeSinceLastInput = 2.0f;
     Dictionary<string, float> comboTracker = new Dictionary<string, float>();
     private Dictionary<int, int> individualAttackTracker = new Dictionary<int, int>();
     private List<string> activeComboHolder = new List<string>();
@@ -21,7 +21,7 @@ public class InputTracker : MonoBehaviour
 
         if (timeSinceLastInput > comboTimeBetweenInputs && activeComboHolder.Count > 0)
         {
-            activeComboHolder.Clear();
+            //activeComboHolder.Clear();
             //TEMP
             StoreCombo();
         }
@@ -57,10 +57,12 @@ public class InputTracker : MonoBehaviour
         //clear combo if taken too long to start new one
         if (activeComboHolder.Count >= 3)
         {
-            activeComboHolder.Clear();
+            //activeComboHolder.Clear();
             //TEMP
             StoreCombo();
         }
+        //combotimesincelast update
+        comboTimeBetweenInputs = 2.0f + duration;
         
         //add to combo and reset time
         activeComboHolder.Add(inputId);
