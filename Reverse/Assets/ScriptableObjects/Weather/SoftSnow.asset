@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76645a2f01f5e7144ba05bad23e61b6b, type: 3}
-  m_Name: Rain
+  m_Name: SoftSnow
   m_EditorClassIdentifier: 
-  weatherState: 2
-  maxParticles: 250
-  emissionRate: 25
-  gravityModifier: 9
-  startLifetime: 3
-  endLifetime: 6
-  startVelocityLifetime: {x: 0, y: 0, z: -20}
-  endVelocityLifetime: {x: 0, y: 0, z: -40}
-  lengthScale: 2
-  speedScale: 0.01
-  dampen: 0.7
+  weatherState: 1
+  maxParticles: 100
+  emissionRate: 10
+  gravityModifier: 0
+  startLifetime: 5
+  endLifetime: 40
+  startVelocityLifetime: {x: -5, y: 0, z: -1}
+  endVelocityLifetime: {x: 5, y: 0, z: -3}
+  lengthScale: 1
+  speedScale: 0
+  dampen: 0.99

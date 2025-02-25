@@ -20,3 +20,6 @@ MonoBehaviour:
   endLifetime: 6
   startVelocityLifetime: {x: 0, y: 0, z: -20}
   endVelocityLifetime: {x: 0, y: 0, z: -30}
+  lengthScale: 2
+  speedScale: 0.01
+  dampen: 0.7

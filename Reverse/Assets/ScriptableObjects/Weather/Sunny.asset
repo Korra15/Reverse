@@ -20,3 +20,5 @@ MonoBehaviour:
   endLifetime: 0
   startVelocityLifetime: {x: 0, y: 0, z: 0}
   endVelocityLifetime: {x: 0, y: 0, z: 0}
+  lengthScale: 2
+  speedScale: 0.01

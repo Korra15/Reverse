@@ -9,13 +9,15 @@ public class WeatherEffects : MonoBehaviour
     [SerializeField] private ParticleSystem weatherParticles;
     [SerializeField] private float weatherTransitionTime = 3.0f;
     
+    //particle system components
+    private ParticleSystemRenderer weatherParticleRenderer;
+
     private EventBinding<WeatherChanged> weatherChangedEventBinding;
     private WeatherParameters currentEffectParameters;
     private WeatherParameters targetEffectParameters;
 
     private void OnEnable()
     {
-        //weatherParticles = GetComponent<ParticleSystem>();
         weatherChangedEventBinding = new EventBinding<WeatherChanged>((weatherChanged) =>
         {
             //If the swap was in the middle of a transition, skip coroutine and set initial values
@@ -32,9 +34,10 @@ public class WeatherEffects : MonoBehaviour
     private void OnDisable() => EventBus<WeatherChanged>.Deregister(weatherChangedEventBinding);
     
     private void Awake() => targetEffectParameters = ScriptableObject.CreateInstance<WeatherParameters>();
-    
 
-    public IEnumerator SetWeatherEffect(WeatherParameters parameters)
+    private void Start() => weatherParticleRenderer = weatherParticles.GetComponent<ParticleSystemRenderer>();
+
+    private IEnumerator SetWeatherEffect(WeatherParameters parameters)
     {
         targetEffectParameters = parameters;
         float elapsedTime = 0f;
@@ -65,6 +68,9 @@ public class WeatherEffects : MonoBehaviour
         result.endLifetime = Mathf.Lerp(from.endLifetime, to.endLifetime, t);
         result.startVelocityLifetime = Vector3.Lerp(from.startVelocityLifetime, to.startVelocityLifetime, t);
         result.endVelocityLifetime = Vector3.Lerp(from.endVelocityLifetime, to.endVelocityLifetime, t);
+        result.lengthScale = Mathf.Lerp(from.lengthScale, to.lengthScale, t);
+        result.speedScale = Mathf.Lerp(from.speedScale, to.speedScale, t);
+        result.dampen = Mathf.Lerp(from.dampen, to.dampen, t);
         return result;
     }
 
@@ -73,6 +79,8 @@ public class WeatherEffects : MonoBehaviour
         ParticleSystem.MainModule main = weatherParticles.main;
         ParticleSystem.EmissionModule emission = weatherParticles.emission;
         ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = weatherParticles.velocityOverLifetime;
+        ParticleSystem.CollisionModule collisionModule = weatherParticles.collision;
+        weatherParticleRenderer = weatherParticles.GetComponent<ParticleSystemRenderer>();
         
         main.maxParticles = (int)parameters.maxParticles;
         main.gravityModifier = parameters.gravityModifier;
@@ -84,5 +92,10 @@ public class WeatherEffects : MonoBehaviour
         velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(parameters.startVelocityLifetime.z, parameters.endVelocityLifetime.z);
         
         emission.rateOverTime = parameters.emissionRate;
+
+        weatherParticleRenderer.lengthScale = parameters.lengthScale;
+        weatherParticleRenderer.velocityScale = parameters.speedScale;
+
+        collisionModule.dampen = parameters.dampen;
     }
 }

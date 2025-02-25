@@ -23,5 +23,12 @@ namespace Weather
         [Header("Velocity (Random between start and end)")]
         [SerializeField] public Vector3 startVelocityLifetime;
         [SerializeField] public Vector3 endVelocityLifetime;
+
+        [Header("Speed based scale and length scale")] 
+        [SerializeField] public float lengthScale;
+        [SerializeField] public float speedScale;
+
+        [Header("Collision Values")] 
+        [SerializeField] public float dampen;
     }   
 }

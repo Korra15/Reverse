@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Stormy
   m_EditorClassIdentifier: 
   weatherState: 3
-  maxParticles: 1000
-  emissionRate: 100
+  maxParticles: 10000
+  emissionRate: 1000
   gravityModifier: 20
   startLifetime: 3
   endLifetime: 5
-  startVelocityLifetime: {x: -50, y: 0, z: -20}
-  endVelocityLifetime: {x: -100, y: 0, z: -120}
+  startVelocityLifetime: {x: -100, y: 0, z: -20}
+  endVelocityLifetime: {x: -200, y: 0, z: -120}
+  lengthScale: 2
+  speedScale: 0.01
+  dampen: 0.7
