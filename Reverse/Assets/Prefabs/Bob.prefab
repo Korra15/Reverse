@@ -109,7 +109,7 @@ MonoBehaviour:
   isPanic: 0
   isDodging: 0
   maxSpeed: 1.8
-  driveForceScale: 1.5
+  driveForceScale: 2
   randomForceScale: 20
   panicTime: 1
   dodgeErrorScale: 0.5

@@ -142,6 +142,7 @@ public class BobsTarget : MonoBehaviour
 
             foreach (Attack attack in attacks)
             {
+                // TO DO: known issue.
                 // Calculate cost according to how far it is to escape an attack from a test point.
                 float errorToMax = attack.MaxRange - testPos[i];
                 float errorToMin = attack.MinRange > 0.6f ? (attack.MinRange - testPos[i]) : (-attack.MaxRange - testPos[i]);
@@ -156,6 +157,8 @@ public class BobsTarget : MonoBehaviour
                 costs[i] += (attack.occurTimes / attackTotalCount) * 
                     Mathf.Min(Mathf.Abs(errorToMin), Mathf.Abs(errorToMax));
             }
+
+            Debug.Log($"cost[{i}] = " + costs[i]);
 
             if (costs[i] < maxCost)
             {
@@ -173,7 +176,7 @@ public class BobsTarget : MonoBehaviour
     /// <param name="occurTimes">how many time in total has this attack occurred</param>
     public void UpdateAttackInfo(int attackId, int occurTimes)
     {
-        attackTotalCount = 0;
+        attackTotalCount = 1;
 
         foreach (Attack attack in attacks)
         {
@@ -182,5 +185,7 @@ public class BobsTarget : MonoBehaviour
 
             attackTotalCount += attack.occurTimes;
         }
+
+        UpdateDodgeDis();
     }
 }
