@@ -9,8 +9,10 @@ public class BobController : MonoBehaviour
     [SerializeField] private float attackBoundaryMax;
     [SerializeField] private float attackOccurTimes;
     [SerializeField] private float attackDurationTemp;
+    [SerializeField] private Collider2D testCollider;
 
     [Header("Status")]
+    [SerializeField] private bool isInRange;
     [SerializeField] private bool isAttacking;
     [SerializeField] private bool isPanic;
     [SerializeField] private bool isDodging;
@@ -141,6 +143,8 @@ public class BobController : MonoBehaviour
 
         // Initialize center of mass for rotation.
         rigidbody.centerOfMass = new Vector3(0, -1f, 0);
+
+        //testCollider.gameObject.SetActive(false);
     }
 
 
@@ -148,12 +152,13 @@ public class BobController : MonoBehaviour
     {
         // For temporary test only.
         // Press 'A' to activate pre-defined attack.
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            float[] boundaries = { attackBoundaryMin, attackBoundaryMax };
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    //float[] boundaries = { attackBoundaryMin, attackBoundaryMax };
+        //    testCollider.gameObject.SetActive(true);
 
-            AttackComing(boundaries, attackOccurTimes, attackDurationTemp);
-        }
+        //    AttackComing(testCollider, attackOccurTimes, attackDurationTemp);
+        //}
     }
 
 
@@ -304,7 +309,13 @@ public class BobController : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         // Operate only when Bob's in Rob's attack range and is not already dodging.
-        if (other != attackCollider || isPanic || isDodging)
+        if (other != attackCollider)
+            return;
+
+        isInRange = true;
+
+        // If Bob's already in dodging state, return.
+        if (isPanic || isDodging)
             return;
 
         // Reset attack information.
@@ -315,8 +326,7 @@ public class BobController : MonoBehaviour
         attackBoundaries[0] = other.bounds.min.x - collider.bounds.extents.x;
         attackBoundaries[1] = other.bounds.max.x + collider.bounds.extents.x;
 
-        // familiarity = ?
-        // attackDuration = ?
+        Debug.Log(other.bounds.min.x);
 
         // Decide which boundary to head for.
         // Start at a random order.
@@ -331,7 +341,7 @@ public class BobController : MonoBehaviour
             if (Mathf.Abs(transform.position.x - attackBoundaries[i % 2]) <
                 Mathf.Abs(transform.position.x - dodgeTarget.x) * calculateError)
             {
-                fleeDirection = Mathf.Sign(transform.position.x - attackBoundaries[i % 2]);
+                fleeDirection = -Mathf.Sign(transform.position.x - attackBoundaries[i % 2]);
                 dodgeTarget.x = attackBoundaries[i % 2];
             }
         }
@@ -349,6 +359,12 @@ public class BobController : MonoBehaviour
 
         // Update dodging state.
         StartCoroutine(UpdateDodgingState());
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision == attackCollider)
+            isInRange = false;
     }
 
 
@@ -374,6 +390,14 @@ public class BobController : MonoBehaviour
         // Bob will stop dodging after the attack is fully ended.
         yield return new WaitForSeconds(attackDuration - panicTime * (1 - familiarity) + 0.05f);
 
+        // If Bob is still in range at attack end, he will get hurt (red flash for now).
+        if (isInRange)
+        {
+            isInRange = false;
+            StartCoroutine(Blink());
+        }
+
+        //testCollider.gameObject.SetActive(false);
         isPanic = false;
         isDodging = false;
     }
@@ -400,6 +424,15 @@ public class BobController : MonoBehaviour
         float z = Mathf.Sqrt(-2.0f * Mathf.Log(u1)) * Mathf.Cos(2.0f * Mathf.PI * u2);
 
         return mean + stdDev * z;
+    }
+
+    private IEnumerator Blink()
+    {
+        transform.GetComponent<SpriteRenderer>().color = Color.red;
+
+        yield return new WaitForSeconds(0.2f);
+
+        transform.GetComponent<SpriteRenderer>().color = Color.white;
     }
     #endregion
 }

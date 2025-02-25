@@ -62,7 +62,7 @@ public class BobsTarget : MonoBehaviour
 
                 for (int i = 1; i < attacks.Length; i++)
                 {
-                    if (attacks[i].minRange < attacks[i - 1].minRange)
+                    if (attacks[i].MinRange < attacks[i - 1].MinRange)
                     {
                         attacks[i] = attackTemp[i - 1];
                         attacks[i - 1] = attackTemp[i];
@@ -79,8 +79,8 @@ public class BobsTarget : MonoBehaviour
                 attackTotalCount += attack.occurTimes;
             }
 
-            closestRange = attacks[0].minRange;
-            farthestRange = attacks[attacks.Length - 1].maxRange;
+            closestRange = attacks[0].MinRange;
+            farthestRange = attacks[attacks.Length - 1].MaxRange;
         }
 
         UpdateDodgeDis();
@@ -140,8 +140,8 @@ public class BobsTarget : MonoBehaviour
             foreach (Attack attack in attacks)
             {
                 // Calculate cost according to how far it is to escape an attack from a test point.
-                float errorToMax = attack.maxRange - testPos[i];
-                float errorToMin = attack.minRange > 0.6f ? (attack.minRange - testPos[i]) : (-attack.maxRange - testPos[i]);
+                float errorToMax = attack.MaxRange - testPos[i];
+                float errorToMin = attack.MinRange > 0.6f ? (attack.MinRange - testPos[i]) : (-attack.MaxRange - testPos[i]);
 
                 // 2 boundaries are at the same side, indicating the test point is not in attack range.
                 if (Mathf.Sign(errorToMin) == Mathf.Sign(errorToMax))
@@ -188,6 +188,28 @@ public class Attack
 {
     public int id;
     public float occurTimes;
-    public float minRange;
-    public float maxRange;
+    public Collider2D collider;
+
+
+    public float MinRange
+    {
+        get
+        {
+            float localX = Mathf.Abs(collider.transform.localPosition.x);
+            float extentX = collider.bounds.extents.x;
+
+            return Mathf.Max(0, localX - extentX);                
+        } 
+    }
+
+    public float MaxRange
+    {
+        get
+        {
+            float localX = Mathf.Abs(collider.transform.localPosition.x);
+            float extentX = collider.bounds.extents.x;
+
+            return Mathf.Max(0, localX + extentX);
+        }
+    }
 }
