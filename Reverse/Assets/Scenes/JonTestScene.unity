@@ -267,6 +267,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4971355229661142970, guid: 65372a26c0db986469fb22886d1212de, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971355229661142970, guid: 65372a26c0db986469fb22886d1212de, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.875
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971355229661142970, guid: 65372a26c0db986469fb22886d1212de, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7208167454362501038, guid: 65372a26c0db986469fb22886d1212de, type: 3}
       propertyPath: m_Name
       value: Rock Attack
