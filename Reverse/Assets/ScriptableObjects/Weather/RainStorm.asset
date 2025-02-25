@@ -15,11 +15,11 @@ MonoBehaviour:
   weatherState: 3
   maxParticles: 10000
   emissionRate: 1000
-  gravityModifier: 20
+  gravityModifier: 30
   startLifetime: 3
   endLifetime: 5
-  startVelocityLifetime: {x: -100, y: 0, z: -20}
+  startVelocityLifetime: {x: -100, y: 0, z: -50}
   endVelocityLifetime: {x: -150, y: 0, z: -120}
-  lengthScale: 2
+  lengthScale: 3
   speedScale: 0.01
-  dampen: 0.7
+  dampen: 0.8
