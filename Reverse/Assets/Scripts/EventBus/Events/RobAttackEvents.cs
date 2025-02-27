@@ -1,7 +1,5 @@
 using UnityEngine;
 
-public class AttackEvents : MonoBehaviour
-{
     //Event to change the weather to the next weather in the WeatherState
     public struct BobDesiredPositionUpdateAttackEvent : IEvent
     {
@@ -17,4 +15,3 @@ public class AttackEvents : MonoBehaviour
         public float duration;
     }
 
-}

@@ -74,7 +74,7 @@ public class InputTracker : MonoBehaviour
         individualAttackTracker[attackNum] += 1;
 
         //raise event with combo id and num times
-        EventBus<AttackEvents.BobDesiredPositionUpdateAttackEvent>.Raise(new AttackEvents.BobDesiredPositionUpdateAttackEvent()
+        EventBus<BobDesiredPositionUpdateAttackEvent>.Raise(new BobDesiredPositionUpdateAttackEvent()
         {
             attackId = attackNum,
             attackTimes = individualAttackTracker[attackNum]
@@ -96,7 +96,7 @@ public class InputTracker : MonoBehaviour
         }
         
         //give bob the number of times combo has been used
-        EventBus<AttackEvents.RobAttackEvent>.Raise(new AttackEvents.RobAttackEvent()
+        EventBus<RobAttackEvent>.Raise(new RobAttackEvent()
         {
             attackBoundaries = attackCollider,
             duration = duration,

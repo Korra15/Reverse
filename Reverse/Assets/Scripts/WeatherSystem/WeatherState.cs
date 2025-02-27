@@ -19,18 +19,18 @@ namespace Weather
     public class WeatherState : MonoBehaviour
     {
         private int currentStateIndex;
-        private EventBinding<CycleWeather> weatherCycleEvent;
+        private EventBinding<BobDieEvent> weatherCycleEvent;
 
         //array of weather objects to call from in order
         [SerializeField] private WeatherParameters[] weatherStateOrder;
         
         private void OnEnable()
         {
-            weatherCycleEvent = new EventBinding<CycleWeather>(CycleWeatherParameters);
-            EventBus<CycleWeather>.Register(weatherCycleEvent);
+            weatherCycleEvent = new EventBinding<BobDieEvent>(CycleWeatherParameters);
+            EventBus<BobDieEvent>.Register(weatherCycleEvent);
         }
 
-        private void OnDisable() => EventBus<CycleWeather>.Deregister(weatherCycleEvent);
+        private void OnDisable() => EventBus<BobDieEvent>.Deregister(weatherCycleEvent);
 
         private void Start()
         {

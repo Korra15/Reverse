@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weatherState: 3
   maxParticles: 10000
-  emissionRate: 1000
+  emissionRate: 300
   gravityModifier: 30
   startLifetime: 3
   endLifetime: 5

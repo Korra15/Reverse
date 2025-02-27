@@ -49,18 +49,18 @@ public class BobController : MonoBehaviour
 
 
     #region EVENT STUFF
-    private EventBinding<AttackEvents.RobAttackEvent> robAttackEventBinding;
+    private EventBinding<RobAttackEvent> robAttackEventBinding;
 
     private void OnEnable()
     {
-        robAttackEventBinding = new EventBinding<AttackEvents.RobAttackEvent>((robAttackData) =>
+        robAttackEventBinding = new EventBinding<RobAttackEvent>((robAttackData) =>
         {
             AttackComing(robAttackData.attackBoundaries, robAttackData.occurTimes, robAttackData.duration);
         }); 
-        EventBus<AttackEvents.RobAttackEvent>.Register(robAttackEventBinding);
+        EventBus<RobAttackEvent>.Register(robAttackEventBinding);
     }
 
-    private void OnDisable() => EventBus<AttackEvents.RobAttackEvent>.Deregister(robAttackEventBinding);
+    private void OnDisable() => EventBus<RobAttackEvent>.Deregister(robAttackEventBinding);
     #endregion
 
     #region PROPERTY
