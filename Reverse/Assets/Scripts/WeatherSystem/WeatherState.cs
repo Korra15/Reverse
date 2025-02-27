@@ -16,18 +16,25 @@ namespace Weather
     public class WeatherState : MonoBehaviour
     {
         private int currentStateIndex;
-        private EventBinding<BobDieEvent> weatherCycleEvent;
+        private EventBinding<BobDieEvent> bobDieEvent;
+        private EventBinding<CycleWeather> weatherCycleEvent;
 
         //array of weather objects to call from in order
         [SerializeField] private WeatherParameters[] weatherStateOrder;
         
         private void OnEnable()
         {
-            weatherCycleEvent = new EventBinding<BobDieEvent>(CycleWeatherParameters);
-            EventBus<BobDieEvent>.Register(weatherCycleEvent);
+            bobDieEvent = new EventBinding<BobDieEvent>(RandomWeatherParameters);
+            EventBus<BobDieEvent>.Register(bobDieEvent);
+            weatherCycleEvent = new EventBinding<CycleWeather>(RandomWeatherParameters);
+            EventBus<CycleWeather>.Register(weatherCycleEvent);
         }
 
-        private void OnDisable() => EventBus<BobDieEvent>.Deregister(weatherCycleEvent);
+        private void OnDisable()
+        {
+            EventBus<BobDieEvent>.Deregister(bobDieEvent);
+            EventBus<CycleWeather>.Deregister(weatherCycleEvent);
+        }
 
         private void Start()
         {
@@ -42,6 +49,22 @@ namespace Weather
         {
             Debug.Log("CYCLE");
             currentStateIndex = (currentStateIndex + 1) % weatherStateOrder.Length;
+
+            print("The Weather is now " + weatherStateOrder[currentStateIndex]);
+            
+            EventBus<WeatherChanged>.Raise(new WeatherChanged()
+            {
+                WeatherParameters = weatherStateOrder[currentStateIndex]
+            });
+        }
+        
+        /// <summary>
+        /// Random Weather
+        /// </summary>
+        public void RandomWeatherParameters()
+        {
+            Debug.Log("CYCLE");
+            currentStateIndex = Random.Range(0, weatherStateOrder.Length);
 
             print("The Weather is now " + weatherStateOrder[currentStateIndex]);
             
