@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 1.8594713, y: 4.6400604, z: 0.14122082}
-  m_LocalScale: {x: 0.20543876, y: 0.15147, z: 0.15147}
+  m_LocalScale: {x: 0.24501507, y: 0.15147, z: 0.15147}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6686773402716299476}
@@ -3684,7 +3684,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3737,7 +3737,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.6
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4830,6 +4830,98 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &1085480536902170015
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4077668154046577174}
+  - component: {fileID: 7346575953013824843}
+  - component: {fileID: 4901174153707563952}
+  m_Layer: 0
+  m_Name: LightningSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4077668154046577174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085480536902170015}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.8594713, y: 0.110060036, z: 0.14122082}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6686773402716299476}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &7346575953013824843
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085480536902170015}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.13758469, y: 0.84824824}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 21.82386, y: 0.5880656}
+  m_EdgeRadius: 0
+--- !u!114 &4901174153707563952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085480536902170015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b36743fd74d4ee418623ab7a2ae1467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenSpawns: 0.1
+  lightingPrefab: {fileID: 7208167454362501038, guid: 268bf5858354f954daf3044d38885bc2, type: 3}
 --- !u!1 &1202246401487314118
 GameObject:
   m_ObjectHideFlags: 0
@@ -4858,7 +4950,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 1.8594713, y: 4.6400604, z: 0.14122082}
-  m_LocalScale: {x: 0.20543876, y: 0.15147, z: 0.15147}
+  m_LocalScale: {x: 0.24501507, y: 0.15147, z: 0.15147}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6686773402716299476}
@@ -5117,8 +5209,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.05
+      scalar: 0.6
+      minScalar: 0.08
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -8514,7 +8606,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -8567,7 +8659,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.6
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -9688,7 +9780,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 1.8594713, y: 4.6400604, z: 0.14122082}
-  m_LocalScale: {x: 0.20543876, y: 0.15147, z: 0.15147}
+  m_LocalScale: {x: 0.24501507, y: 0.15147, z: 0.15147}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6686773402716299476}
@@ -9947,8 +10039,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.05
+      scalar: 0.1
+      minScalar: 0.02
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -13344,7 +13436,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -13397,7 +13489,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.6
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -14524,6 +14616,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4077668154046577174}
   - {fileID: 4161381670168978173}
   - {fileID: 5645580701681577057}
   - {fileID: 5375805636199684395}
@@ -14556,10 +14649,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weatherStateOrder:
-  - {fileID: 11400000, guid: d305fe9010cf6a44e870f80345cc2fc4, type: 2}
-  - {fileID: 11400000, guid: 780e3a22b86a33348a34db00f7cbbd74, type: 2}
-  - {fileID: 11400000, guid: ae073c23d625d3b4b84d98ab421089b1, type: 2}
   - {fileID: 11400000, guid: b813fc02d85968147b8892bef6db79fa, type: 2}
+  - {fileID: 11400000, guid: 780e3a22b86a33348a34db00f7cbbd74, type: 2}
+  - {fileID: 11400000, guid: d305fe9010cf6a44e870f80345cc2fc4, type: 2}
+  - {fileID: 11400000, guid: ae073c23d625d3b4b84d98ab421089b1, type: 2}
   - {fileID: 11400000, guid: ae073c23d625d3b4b84d98ab421089b1, type: 2}
   - {fileID: 11400000, guid: 780e3a22b86a33348a34db00f7cbbd74, type: 2}
   - {fileID: 11400000, guid: 2db2c5b1db72aef4b9ef0c96cfe815dd, type: 2}
