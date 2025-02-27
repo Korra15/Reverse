@@ -5,7 +5,7 @@ namespace Weather
     [CreateAssetMenu(fileName = "WeatherType")]
     public class WeatherParameters : ScriptableObject
     {
-        [SerializeField] private State weatherState;
+        [SerializeField] public State weatherState;
         
         [Header("Standard Particle Effect Modifications")]
         [SerializeField] public float maxParticles;

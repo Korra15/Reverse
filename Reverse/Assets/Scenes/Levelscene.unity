@@ -902,6 +902,98 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1083705834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1083705836}
+  - component: {fileID: 1083705835}
+  - component: {fileID: 1083705837}
+  m_Layer: 0
+  m_Name: LightningSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1083705835
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083705834}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.13758469, y: 0.84824824}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 21.82386, y: 0.5880656}
+  m_EdgeRadius: 0
+--- !u!4 &1083705836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083705834}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1083705837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083705834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b36743fd74d4ee418623ab7a2ae1467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenSpawns: 0.1
+  lightingPrefab: {fileID: 7208167454362501038, guid: 268bf5858354f954daf3044d38885bc2, type: 3}
 --- !u!1001 &1460903451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -918,13 +1010,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rob
       objectReference: {fileID: 0}
+    - target: {fileID: 3622673147349476841, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: m_TagString
+      value: Rob
+      objectReference: {fileID: 0}
     - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.12
       objectReference: {fileID: 0}
     - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1453,7 +1549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3834615349398674477, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.27
+      value: -2.3899999
       objectReference: {fileID: 0}
     - target: {fileID: 3834615349398674477, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1504,17 +1600,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4161381670168978173, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.20543876
+    - target: {fileID: 1202246401487314118, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5375805636199684395, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.20543876
-      objectReference: {fileID: 0}
-    - target: {fileID: 5645580701681577057, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.20543876
+    - target: {fileID: 5898363286670556482, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6686773402716299476, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1556,9 +1648,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7043533085031210278, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: weatherStateOrder.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b813fc02d85968147b8892bef6db79fa, type: 2}
+    - target: {fileID: 7043533085031210278, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: weatherStateOrder.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 780e3a22b86a33348a34db00f7cbbd74, type: 2}
+    - target: {fileID: 7043533085031210278, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: weatherStateOrder.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: d305fe9010cf6a44e870f80345cc2fc4, type: 2}
+    - target: {fileID: 7043533085031210278, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: weatherStateOrder.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: ae073c23d625d3b4b84d98ab421089b1, type: 2}
+    - target: {fileID: 7492772168729510662, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492772168729510662, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492772168729510662, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492772168729510662, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867903645361321148, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867903645361321148, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 8045745450066511639, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
       propertyPath: m_Name
       value: WeatherManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8873305599786299744, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8873305599786299744, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8873305599786299744, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 8873305599786299744, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1578,3 +1726,4 @@ SceneRoots:
   - {fileID: 1460903451}
   - {fileID: 2097668114}
   - {fileID: 1751004661}
+  - {fileID: 1083705836}
