@@ -33,9 +33,11 @@ namespace Weather
 
         private void OnDisable() => EventBus<WeatherChanged>.Deregister(weatherChangedEventBinding);
 
-        private void Awake() => targetEffectParameters = ScriptableObject.CreateInstance<WeatherParameters>();
-
-        private void Start() => weatherParticleRenderer = weatherParticles.GetComponent<ParticleSystemRenderer>();
+        private void Awake()
+        {
+            weatherParticleRenderer = weatherParticles.GetComponent<ParticleSystemRenderer>();
+            targetEffectParameters = ScriptableObject.CreateInstance<WeatherParameters>();
+        }
 
         /// <summary>
         /// Sets a weather effect with new parameters, will transition to new effect
@@ -83,6 +85,8 @@ namespace Weather
             result.lengthScale = Mathf.Lerp(from.lengthScale, to.lengthScale, t);
             result.speedScale = Mathf.Lerp(from.speedScale, to.speedScale, t);
             result.dampen = Mathf.Lerp(from.dampen, to.dampen, t);
+            result.startColor = Color.Lerp(from.startColor, to.startColor, t);
+            result.endColor = Color.Lerp(from.endColor, to.endColor, t);
             return result;
         }
 
@@ -96,11 +100,12 @@ namespace Weather
             ParticleSystem.EmissionModule emission = weatherParticles.emission;
             ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = weatherParticles.velocityOverLifetime;
             ParticleSystem.CollisionModule collisionModule = weatherParticles.collision;
-            weatherParticleRenderer = weatherParticles.GetComponent<ParticleSystemRenderer>();
+
 
             main.maxParticles = (int)parameters.maxParticles;
             main.gravityModifier = parameters.gravityModifier;
             main.startLifetime = new ParticleSystem.MinMaxCurve(parameters.startLifetime, parameters.endLifetime);
+            main.startColor = new ParticleSystem.MinMaxGradient(parameters.startColor, parameters.endColor);
 
             velocityOverLifetime.enabled = true;
             velocityOverLifetime.x =

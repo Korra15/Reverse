@@ -27,5 +27,9 @@ namespace Weather
 
         [Header("Collision Values")] 
         [SerializeField] public float dampen;
+
+        [Header("Color Values (Random Between 2)")] 
+        [SerializeField] public Color startColor;
+        [SerializeField] public Color endColor;
     }   
 }

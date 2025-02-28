@@ -22,3 +22,8 @@ MonoBehaviour:
   endVelocityLifetime: {x: 0, y: 0, z: 0}
   lengthScale: 2
   speedScale: 0.01
+  dampen: 0
+  startColor: {r: 1, g: 1, b: 1, a: 0}
+  endColor: {r: 1, g: 1, b: 1, a: 0}
+  startSize: 0
+  endSize: 0
