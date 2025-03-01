@@ -2029,6 +2029,10 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7492772168729510662, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492772168729510662, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
       propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
       value: 0.7
       objectReference: {fileID: 0}
@@ -2043,6 +2047,10 @@ PrefabInstance:
     - target: {fileID: 8045745450066511639, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
       propertyPath: m_Name
       value: WeatherManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8873305599786299744, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8873305599786299744, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
       propertyPath: CollisionModule.m_Bounce.scalar
