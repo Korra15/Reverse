@@ -476,46 +476,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOver
       objectReference: {fileID: 0}
-    - target: {fileID: 3569344315784387533, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3569344315784387533, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3569344315784387533, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3569344315784387533, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3569344315784387533, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5737561195733231604, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5737561195733231604, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5737561195733231604, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5737561195733231604, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5737561195733231604, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -577,6 +537,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90334daf1d2a46a4b88125b3a4ec9951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuPanel: {fileID: 0}
+  mainMenuBackground: {fileID: 0}
+  mainMenuButtons: {fileID: 0}
+  fadeScenePanel: {fileID: 0}
   playButton: {fileID: 1461888354}
   exitButton: {fileID: 1461888352}
 --- !u!4 &1524829277
