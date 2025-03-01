@@ -476,6 +476,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOver
       objectReference: {fileID: 0}
+    - target: {fileID: 3569344315784387533, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569344315784387533, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569344315784387533, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569344315784387533, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569344315784387533, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737561195733231604, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737561195733231604, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737561195733231604, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737561195733231604, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737561195733231604, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8690552550367418670, guid: 7420f4978b90b3e43a3d5526fd402af4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a04359a24583504a959b9ecb4211040, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
