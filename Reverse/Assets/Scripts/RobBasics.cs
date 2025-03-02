@@ -15,7 +15,7 @@ public class RobBasics : MonoBehaviour
 
     //variables
     //rob values
-    public int health = 20;
+    public int health = 100;
     public int moveSpd = 2;
 
     // Use this to manage attacks in the inspector (including colliders).
@@ -65,6 +65,7 @@ public class RobBasics : MonoBehaviour
     public void TakeHealth(int dmg)
     {
         health -= dmg;
+        EventBus<RobHealthDecrease>.Raise(new RobHealthDecrease());
     }
 
     //handles all inputs

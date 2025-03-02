@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class TestBobDie : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class TestBobDie : MonoBehaviour
         {
             Debug.Log("Bob respawn!");
             EventBus<BobRespawnEvent>.Raise(new BobRespawnEvent());
+        }
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            GameObject.FindAnyObjectByType<RobBasics>().TakeHealth(10);
         }
     }
 }
