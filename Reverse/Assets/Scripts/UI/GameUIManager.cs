@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class GameUIManager : MonoBehaviour
     [Header("PauseMenu Buttons")]
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button optionsButton;
+    [SerializeField] private Button restartButton;
     [SerializeField] private Button exitButton;
-
+    
     [Header("PauseMenu UI")]
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] RectTransform pauseMenuRect;
@@ -25,6 +27,7 @@ public class GameUIManager : MonoBehaviour
     {
         resumeButton.onClick.AddListener(ResumeGame);
         exitButton.onClick.AddListener(Exit);
+        restartButton.onClick.AddListener(RestartGame);
     }
     void Update()
     {
@@ -73,4 +76,8 @@ public class GameUIManager : MonoBehaviour
         Application.Quit();
     }
     
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(2);
+    }
 }
