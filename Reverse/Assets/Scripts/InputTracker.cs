@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class InputTracker : MonoBehaviour
@@ -12,6 +11,17 @@ public class InputTracker : MonoBehaviour
     Dictionary<string, float> comboTracker = new Dictionary<string, float>();
     private Dictionary<int, int> individualAttackTracker = new Dictionary<int, int>();
     private List<string> activeComboHolder = new List<string>();
+    
+    //EVENT
+    private EventBinding<BobDieEvent> bobDieEvent;
+
+    private void OnEnable()
+    {
+        bobDieEvent = new EventBinding<BobDieEvent>(StoreCombo);
+        EventBus<BobDieEvent>.Register(bobDieEvent);
+    }
+
+    private void OnDisable() => EventBus<BobDieEvent>.Deregister(bobDieEvent);
 
     private void Start() => timeSinceLastInput = 0;
 
@@ -19,12 +29,7 @@ public class InputTracker : MonoBehaviour
     {
         timeSinceLastInput += Time.deltaTime;
 
-        if (timeSinceLastInput > comboTimeBetweenInputs && activeComboHolder.Count > 0)
-        {
-            //activeComboHolder.Clear();
-            //TEMP
-            StoreCombo();
-        }
+        if (timeSinceLastInput > comboTimeBetweenInputs && activeComboHolder.Count > 0) activeComboHolder.Clear();
     }
 
     /*private void LateUpdate()
@@ -55,12 +60,8 @@ public class InputTracker : MonoBehaviour
     public void AddInput(string inputId, Collider2D attackCollider, float duration)
     {
         //clear combo if taken too long to start new one
-        if (activeComboHolder.Count >= 3)
-        {
-            //activeComboHolder.Clear();
-            //TEMP
-            StoreCombo();
-        }
+        if (activeComboHolder.Count >= 3) activeComboHolder.Clear();
+        
         //combotimesincelast update
         comboTimeBetweenInputs = 2.0f + duration;
         
