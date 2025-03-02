@@ -1307,6 +1307,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2011456258470892145, guid: 9ea0b72603033a94d98f351f071052a9, type: 3}
+      propertyPath: inputTracker
+      value: 
+      objectReference: {fileID: 332327730}
     - target: {fileID: 2098995492828093983, guid: 9ea0b72603033a94d98f351f071052a9, type: 3}
       propertyPath: m_Name
       value: HUD

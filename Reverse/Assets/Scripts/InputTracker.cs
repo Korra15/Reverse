@@ -60,13 +60,22 @@ public class InputTracker : MonoBehaviour
     public void AddInput(string inputId, Collider2D attackCollider, float duration)
     {
         //clear combo if taken too long to start new one
-        if (activeComboHolder.Count >= 3) activeComboHolder.Clear();
+        if (activeComboHolder.Count >= 3)
+        {
+            activeComboHolder.Clear();
+            EventBus<ClearCombo>.Raise(new ClearCombo()); //event raised to clear combo text
+        }
         
         //combotimesincelast update
         comboTimeBetweenInputs = 2.0f + duration;
         
         //add to combo and reset time
         activeComboHolder.Add(inputId);
+        // event raised to store combo to add
+        EventBus<AddingToCombo>.Raise(new AddingToCombo()
+        {
+            comboToAdd = inputId
+        }); 
         timeSinceLastInput = 0;
         
         //update the tracker for individual attacks

@@ -58,27 +58,4 @@ public class AttackSelectionHandler : MonoBehaviour
         transform.localPosition = startPos;
         transform.localScale = startScale;
     }
-
-    //public void OnPointerEnter(PointerEventData eventData)
-    //{
-    //    //Select icon
-    //    eventData.selectedObject = gameObject;
-        
-    //}
-
-    //public void OnPointerExit(PointerEventData eventData)
-    //{
-    //    //deselect icon
-    //    eventData.selectedObject = null;
-    //}
-
-    //public void OnSelect(BaseEventData eventData)
-    //{
-    //    StartCoroutine(MoveCard(true));
-    //}
-
-    //public void OnDeselect(BaseEventData eventData)
-    //{
-    //    StartCoroutine(MoveCard(false));
-    //}
 }
