@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class RobBasics : MonoBehaviour
 {
@@ -35,6 +38,8 @@ public class RobBasics : MonoBehaviour
     private GameObject magnetoRock;
     [SerializeField]
     private Transform rockSpawnPos;
+
+    [SerializeField] private Image attack1, attack2, attack3;
 
     // Start is called before the first frame update
     void Start()
@@ -112,6 +117,7 @@ public class RobBasics : MonoBehaviour
             animator.SetTrigger("trMelee");
             StartCoroutine(ConductAttack(attacks[MELEE]));
             //AttackMelee();
+            AttackImageAnimaiton(attack1, attacks[MELEE].totalActionTime);
         }
 
         //attack 2
@@ -121,6 +127,7 @@ public class RobBasics : MonoBehaviour
             GameObject rock = GameObject.Instantiate(magnetoRock, rockSpawnPos.position, Quaternion.identity, transform);
             StartCoroutine(ConductAttack(attacks[RANGED]));
             //AttackRanged();
+            AttackImageAnimaiton(attack2, attacks[RANGED].totalActionTime);
         }
 
         //attack 3
@@ -129,6 +136,7 @@ public class RobBasics : MonoBehaviour
         //    animator.SetTrigger("trAoe");
         //    StartCoroutine(ConductAttack(attacks[AOE]));
         //    //AttackAoE();
+        //    AttackImageAnimaiton(attack1, attacks[AOE].totalActionTime);
         //}
     }
 
@@ -179,6 +187,12 @@ public class RobBasics : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         isAttacking = false;
+    }
+
+    ///<summary> Calling this for UI animaiton of selected attack button </summary>
+    private void AttackImageAnimaiton(Image attackImage, float attackAnimTime)
+    {
+        StartCoroutine(attackImage.GetComponent<AttackSelectionHandler>().MoveCard(attackAnimTime, true));
     }
 }
 
