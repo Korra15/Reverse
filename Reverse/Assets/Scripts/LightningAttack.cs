@@ -3,9 +3,14 @@ using UnityEngine;
 public class LightningAttack : MonoBehaviour
 {
     Animator animator;
+    private Collider2D collider;
 
-    private void Awake() => animator = GetComponent<Animator>();
-    
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        collider = GetComponent<Collider2D>();
+    }
+
 
     private void Update()
     {
@@ -16,7 +21,13 @@ public class LightningAttack : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Bob"))
         {
-            print("LIGHTING HIT BOB");
+            EventBus<RobAttackEvent>.Raise(new RobAttackEvent()
+            {
+                attackBoundaries = collider,
+                occurTimes =  0,
+                duration = 1
+
+            });
         }
 
         if (other.gameObject.CompareTag("Rob"))
