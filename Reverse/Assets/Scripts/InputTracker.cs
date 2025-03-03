@@ -29,7 +29,11 @@ public class InputTracker : MonoBehaviour
     {
         timeSinceLastInput += Time.deltaTime;
 
-        if (timeSinceLastInput > comboTimeBetweenInputs && activeComboHolder.Count > 0) activeComboHolder.Clear();
+        if (timeSinceLastInput > comboTimeBetweenInputs && activeComboHolder.Count > 0)
+        {
+            activeComboHolder.Clear();
+            EventBus<ClearCombo>.Raise(new ClearCombo()); //event raised to clear combo text
+        }
     }
 
     /*private void LateUpdate()
