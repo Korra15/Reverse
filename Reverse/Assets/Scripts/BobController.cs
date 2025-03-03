@@ -469,6 +469,7 @@ public class BobController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         transform.position = respawnPos.position;
+        EventBus<BobRespawnEvent>.Raise(new BobRespawnEvent() { });
         isFreeze = false;
     }
     #endregion
