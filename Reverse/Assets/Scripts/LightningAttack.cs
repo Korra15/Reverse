@@ -25,7 +25,7 @@ public class LightningAttack : MonoBehaviour
             {
                 attackBoundaries = collider,
                 occurTimes =  0,
-                duration = 1
+                duration = .1f
 
             });
         }
