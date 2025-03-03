@@ -14,8 +14,11 @@ public class BobController : MonoBehaviour
     [Header("Status")]
     [SerializeField] private bool isInRange;
     [SerializeField] private bool isAttacking;
-    [SerializeField] private bool isPanic;
+    [SerializeField] private bool isFreeze;
     [SerializeField] private bool isDodging;
+    [SerializeField] private float health;
+
+    private float maxHealth = 1.0f;
     private bool isInAnimation;
 
     [Header("Moving Properties")]
@@ -43,6 +46,7 @@ public class BobController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform rob;
+    [SerializeField] private Transform respawnPos;
     private Transform desiredPos;
     private Collider2D collider;
     private Rigidbody2D rigidbody;
@@ -50,6 +54,7 @@ public class BobController : MonoBehaviour
 
     #region EVENT STUFF
     private EventBinding<RobAttackEvent> robAttackEventBinding;
+    private EventBinding<BobDieEvent> bobDieEventBinding;
 
     private void OnEnable()
     {
@@ -103,9 +108,10 @@ public class BobController : MonoBehaviour
     private void Start()
     {
         isAttacking = false;
-        isPanic = false;
+        isFreeze = false;
         isDodging = false;
         isInAnimation = false;
+        health = maxHealth;
 
         familiarity = 0;
         attackDuration = 0;
@@ -159,6 +165,8 @@ public class BobController : MonoBehaviour
 
         //    AttackComing(testCollider, attackOccurTimes, attackDurationTemp);
         //}
+
+        CheckDeath();
     }
 
 
@@ -197,7 +205,7 @@ public class BobController : MonoBehaviour
         Vector3 drivingForce = Vector3.zero;
 
         // If Bob's in panic/attacking/animation state, do nothing.
-        if (isPanic || isAttacking || isInAnimation)
+        if (isFreeze || isAttacking || isInAnimation)
         {
             return;
         }
@@ -225,7 +233,7 @@ public class BobController : MonoBehaviour
         rigidbody.AddForce(drivingForce);
     }
 
-
+    #region Unused method
     /// <summary>
     /// Input info of coming attack. For temporary test only.
     /// </summary>
@@ -235,7 +243,7 @@ public class BobController : MonoBehaviour
     public void AttackComing(float[] attackBoundaries, float occurTimes, float duration)
     {
         // Operate only when Bob's in Rob is not already dodging.
-        if (isPanic || isDodging)
+        if (isFreeze || isDodging)
             return;
 
         // Reset attack information.
@@ -281,8 +289,10 @@ public class BobController : MonoBehaviour
 
         StartCoroutine(UpdateDodgingState());
     }
+    #endregion
 
 
+    #region Bob Dodge
     /// <summary>
     /// Input info of coming attack (collider2D ver.).
     /// </summary>
@@ -315,7 +325,7 @@ public class BobController : MonoBehaviour
         isInRange = true;
 
         // If Bob's already in dodging state, return.
-        if (isPanic || isDodging)
+        if (isFreeze || isDodging)
             return;
 
         // Reset attack information.
@@ -374,7 +384,7 @@ public class BobController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator UpdateDodgingState()
     {
-        isPanic = true;
+        isFreeze = true;
         isDodging = false;
 
         // Bob will panic to jump when an attack comes.
@@ -384,30 +394,44 @@ public class BobController : MonoBehaviour
         // Bob will stay in panic state for a while, depending on his familiarity.
         yield return new WaitForSeconds(panicTime * (1 - familiarity));
 
-        isPanic = false;
+        isFreeze = false;
         isDodging = true;
 
         // Bob will stop dodging after the attack is fully ended.
         yield return new WaitForSeconds(attackDuration - panicTime * (1 - familiarity) - 0.05f);
 
+        //testCollider.gameObject.SetActive(false);
+        isFreeze = false;
+        isDodging = false;
+
         // If Bob is still in range at attack end, he will get hurt (red flash for now).
         if (isInRange)
         {
             isInRange = false;
+            health -= 1.0f;
             StartCoroutine(Blink());
         }
 
         yield return new WaitForSeconds(0.1f);
-
-        //testCollider.gameObject.SetActive(false);
-        isPanic = false;
-        isDodging = false;
     }
+    #endregion
 
 
     private void TryAttack()
     {
 
+    }
+
+
+    private void CheckDeath()
+    {
+        if (health > 0.0f) return;
+
+        EventBus<BobDieEvent>.Raise(new BobDieEvent() { });
+
+        health = maxHealth;
+        StartCoroutine(Killed());
+        Debug.Log("Bob is killed!");
     }
 
 
@@ -435,6 +459,16 @@ public class BobController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         transform.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    private IEnumerator Killed()
+    {
+        isFreeze = true;
+
+        yield return new WaitForSeconds(1.0f);
+
+        transform.position = respawnPos.position;
+        isFreeze = false;
     }
     #endregion
 }
