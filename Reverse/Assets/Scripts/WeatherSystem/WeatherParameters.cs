@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Weather
@@ -8,7 +5,7 @@ namespace Weather
     [CreateAssetMenu(fileName = "WeatherType")]
     public class WeatherParameters : ScriptableObject
     {
-        [SerializeField] private State weatherState;
+        [SerializeField] public State weatherState;
         
         [Header("Standard Particle Effect Modifications")]
         [SerializeField] public float maxParticles;
@@ -23,5 +20,20 @@ namespace Weather
         [Header("Velocity (Random between start and end)")]
         [SerializeField] public Vector3 startVelocityLifetime;
         [SerializeField] public Vector3 endVelocityLifetime;
+
+        [Header("Speed based scale and length scale")] 
+        [SerializeField] public float lengthScale;
+        [SerializeField] public float speedScale;
+
+        [Header("Collision Values")] 
+        [SerializeField] public float dampen;
+
+        [Header("Color Values (Random Between 2)")] 
+        [SerializeField] public Color startColor;
+        [SerializeField] public Color endColor;
+
+        [Header("Global Effects")] 
+        [SerializeField] public float sunlightIntensity = 1.0f;
+        [SerializeField] public Color sunlightColor;
     }   
 }

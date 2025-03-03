@@ -13,10 +13,17 @@ MonoBehaviour:
   m_Name: Sunny
   m_EditorClassIdentifier: 
   weatherState: 0
-  maxParticles: 0
+  maxParticles: 1000
   emissionRate: 0
-  gravityModifier: 0
-  startLifetime: 0
-  endLifetime: 0
+  gravityModifier: 9
+  startLifetime: 3
+  endLifetime: 6
   startVelocityLifetime: {x: 0, y: 0, z: 0}
   endVelocityLifetime: {x: 0, y: 0, z: 0}
+  lengthScale: 2
+  speedScale: 0.01
+  dampen: 0
+  startColor: {r: 1, g: 1, b: 1, a: 0}
+  endColor: {r: 1, g: 1, b: 1, a: 0}
+  sunlightIntensity: 1
+  sunlightColor: {r: 0.96981126, g: 0.7726194, b: 0.43733, a: 1}

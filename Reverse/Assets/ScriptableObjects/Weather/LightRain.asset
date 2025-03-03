@@ -20,3 +20,10 @@ MonoBehaviour:
   endLifetime: 6
   startVelocityLifetime: {x: 0, y: 0, z: -20}
   endVelocityLifetime: {x: 0, y: 0, z: -30}
+  lengthScale: 2
+  speedScale: 0.01
+  dampen: 0.7
+  startColor: {r: 0.035848916, g: 0.8539994, b: 1, a: 1}
+  endColor: {r: 0.2396226, g: 0.25408286, b: 1, a: 1}
+  sunlightIntensity: 0.9
+  sunlightColor: {r: 1, g: 1, b: 1, a: 1}
