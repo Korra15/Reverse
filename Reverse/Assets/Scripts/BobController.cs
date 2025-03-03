@@ -429,6 +429,7 @@ public class BobController : MonoBehaviour
 
         EventBus<BobDieEvent>.Raise(new BobDieEvent() { });
 
+        maxHealth += 0.4f;
         health = maxHealth;
         StartCoroutine(Killed());
         Debug.Log("Bob is killed!");
