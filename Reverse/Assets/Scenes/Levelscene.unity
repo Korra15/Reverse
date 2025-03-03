@@ -692,6 +692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 619394802}
   - component: {fileID: 619394801}
+  - component: {fileID: 619394803}
   m_Layer: 0
   m_Name: Global Light 2D
   m_TagString: Untagged
@@ -715,7 +716,7 @@ MonoBehaviour:
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3056603, g: 0.3056603, b: 0.3056603, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -764,6 +765,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &619394803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619394800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a2720c15408144eae28b03993c1e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionDuration: 5
 --- !u!1 &650415699
 GameObject:
   m_ObjectHideFlags: 0
@@ -2170,6 +2184,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bob
       objectReference: {fileID: 0}
+    - target: {fileID: 2190521303587719411, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3834615349398674477, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.08
@@ -2238,26 +2256,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1202246401487314118, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696706516712797282, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4901174153707563952, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: timeBetweenSpawns
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5898363286670556482, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6025279172556696802, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6686773402716299476, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.8594713
@@ -2298,45 +2296,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7492772168729510662, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: CollisionModule.m_Bounce.scalar
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7492772168729510662, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 7492772168729510662, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7867903645361321148, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: CollisionModule.m_Bounce.scalar
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7867903645361321148, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 8045745450066511639, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
       propertyPath: m_Name
       value: WeatherManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8873305599786299744, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8873305599786299744, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: CollisionModule.m_Bounce.scalar
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8873305599786299744, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: CollisionModule.collidesWith.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8873305599786299744, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
-      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
-      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

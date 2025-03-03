@@ -16,7 +16,7 @@ MonoBehaviour:
   maxParticles: 500
   emissionRate: 100
   gravityModifier: 0
-  startLifetime: 5
+  startLifetime: 10
   endLifetime: 20
   startVelocityLifetime: {x: -5, y: 0, z: -1}
   endVelocityLifetime: {x: 5, y: 0, z: -10}
@@ -25,5 +25,5 @@ MonoBehaviour:
   dampen: 0.99
   startColor: {r: 1, g: 1, b: 1, a: 1}
   endColor: {r: 0.6226415, g: 0.60501957, b: 0.60501957, a: 1}
-  startSize: 0
-  endSize: 0
+  sunlightIntensity: 0.75
+  sunlightColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}

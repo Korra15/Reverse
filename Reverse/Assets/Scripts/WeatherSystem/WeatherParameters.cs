@@ -31,5 +31,9 @@ namespace Weather
         [Header("Color Values (Random Between 2)")] 
         [SerializeField] public Color startColor;
         [SerializeField] public Color endColor;
+
+        [Header("Global Effects")] 
+        [SerializeField] public float sunlightIntensity = 1.0f;
+        [SerializeField] public Color sunlightColor;
     }   
 }

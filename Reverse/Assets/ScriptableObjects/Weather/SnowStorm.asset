@@ -25,5 +25,5 @@ MonoBehaviour:
   dampen: 0.99
   startColor: {r: 1, g: 1, b: 1, a: 1}
   endColor: {r: 0.6226415, g: 0.60501957, b: 0.60501957, a: 1}
-  startSize: 0
-  endSize: 0
+  sunlightIntensity: 0.6
+  sunlightColor: {r: 0.335849, g: 0.32634383, b: 0.32634383, a: 1}

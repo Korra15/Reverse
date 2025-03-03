@@ -3684,7 +3684,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3737,7 +3737,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.6
+      scalar: 0.7
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4920,7 +4920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b36743fd74d4ee418623ab7a2ae1467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenSpawns: 0.1
+  timeBetweenSpawns: 1
   lightingPrefab: {fileID: 7208167454362501038, guid: 268bf5858354f954daf3044d38885bc2, type: 3}
 --- !u!1 &1202246401487314118
 GameObject:
@@ -5209,7 +5209,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.6
+      scalar: 0.4
       minScalar: 0.08
       maxCurve:
         serializedVersion: 2
@@ -8606,7 +8606,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -8659,7 +8659,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.6
+      scalar: 0.7
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -8714,7 +8714,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 256
+      m_Bits: 0
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -9719,7 +9719,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1827241487
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_RenderMode: 1
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -10040,7 +10040,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.1
-      minScalar: 0.02
+      minScalar: 0.03
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -13436,7 +13436,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -13489,7 +13489,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.6
+      scalar: 0.7
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -14549,7 +14549,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1829467267
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 1
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -14635,7 +14635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weatherParticles: {fileID: 7867903645361321148}
-  weatherTransitionTime: 3
+  weatherTransitionTime: 5
 --- !u!114 &7043533085031210278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14664,12 +14664,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8045745450066511639}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 531eaa8eb0c8b86498401b922d04c1ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenWeather: 10
+  timeBetweenWeather: 5
   timer: 0
 --- !u!114 &4849303705182933860
 MonoBehaviour:
@@ -14684,7 +14684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weatherParticles: {fileID: 8873305599786299744}
-  weatherTransitionTime: 3
+  weatherTransitionTime: 5
 --- !u!114 &1090918833449484688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14698,4 +14698,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weatherParticles: {fileID: 7492772168729510662}
-  weatherTransitionTime: 3
+  weatherTransitionTime: 5
