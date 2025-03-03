@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,13 +39,15 @@ public class RobBasics : MonoBehaviour
     private GameObject magnetoRock;
     [SerializeField]
     private Transform rockSpawnPos;
+    [SerializeField]
+    private Transform bobPos;
 
     [SerializeField] private Image attack1, attack2, attack3;
 
     // Start is called before the first frame update
     void Start()
     {
-        //health = 20;
+        health = 20;
         //moveSpd = 2;
         isAttacking = false;
         animator = gameObject.GetComponent<Animator>();
@@ -52,6 +55,12 @@ public class RobBasics : MonoBehaviour
         foreach (Attack attack in attacks)
         {
             attack.collider.gameObject.SetActive(false);
+        }
+
+        //get position of bob
+        if (bobPos != null)
+        {
+            bobPos = GameObject.Find("Bob").transform;
         }
     }
 
@@ -132,13 +141,13 @@ public class RobBasics : MonoBehaviour
         }
 
         //attack 3
-        //if (Input.GetKeyUp(KeyCode.Alpha3))
-        //{
-        //    animator.SetTrigger("trAoe");
-        //    StartCoroutine(ConductAttack(attacks[AOE]));
-        //    //AttackAoE();
-        //    AttackImageAnimaiton(attack1, attacks[AOE].totalActionTime);
-        //}
+        if (Input.GetKeyUp(KeyCode.Alpha3))
+        {
+            animator.SetTrigger("trAoe");
+            StartCoroutine(ConductAttack(attacks[AOE]));
+            //AttackAoE();
+            AttackImageAnimaiton(attack3, attacks[AOE].totalActionTime);
+        }
     }
 
     private IEnumerator ConductAttack(Attack attack)
@@ -148,45 +157,26 @@ public class RobBasics : MonoBehaviour
 
         // Activate the corresponding attack object.
         attack.collider.gameObject.SetActive(true);
+
+        // If collider is AoE
+        if (attack.collider.gameObject.name == "AoE Attack")
+        {
+            attack.collider.gameObject.transform.position = new Vector3(bobPos.position.x, bobPos.position.y);
+        }
+
         // Give input tracker attack info.
         inputTracker.AddInput(attack.id.ToString(), attack.collider, attack.timeBeforeHit);
 
         // wait until hitbox ends.
         yield return new WaitForSeconds(attack.timeBeforeHit + 0.05f);
 
-        // Inactivate the attack object.
+        // Deactivate the attack object.
         attack.collider.gameObject.SetActive(false);
 
         // wait until the animation ends.
         yield return new WaitForSeconds(attack.totalActionTime - attack.timeBeforeHit);
 
         // set isAttcaking to false, so that other inputs are available.
-        isAttacking = false;
-    }
-
-    //below functions are redundant and unnecessary now, going to leave them temporarily anyways
-    //melee attack functionality, called in InputCheck() (attack1)
-    void AttackMelee()
-    {
-
-    }
-
-    //ranged attack functionality, called in InputCheck() (attack2)
-    void AttackRanged()
-    {
-        
-    }
-
-    //aoe attack functionality, called in InputCheck() (attack3)
-    void AttackAoE()
-    {
-
-    }
-
-    public IEnumerator Attacking()
-    {
-        yield return new WaitForSeconds(2);
-
         isAttacking = false;
     }
 
