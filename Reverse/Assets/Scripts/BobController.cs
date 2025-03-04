@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using Weather;
 
 public class BobController : MonoBehaviour
 {
@@ -117,7 +118,7 @@ public class BobController : MonoBehaviour
         fleeDirection = 0;
         dodgeTarget = new Vector3(float.MaxValue, 0, 0);
 
-        attackTimer = 0;
+        attackTimer = -10f;
 
         if (weapons.Length != 0)
         {
@@ -166,6 +167,8 @@ public class BobController : MonoBehaviour
         //}
 
         CheckDeath();
+
+        PrepareAttack();
     }
 
     private void CheckDeath()
@@ -328,7 +331,7 @@ public class BobController : MonoBehaviour
     #endregion
 
 
-     #region Bob Dodge
+    #region Bob Dodge
     /// <summary>
     /// Input info of coming attack (collider2D ver.).
     /// </summary>
@@ -409,12 +412,12 @@ public class BobController : MonoBehaviour
 
             // Update the left boundary.
             attackBoundaries[0] =
-                Mathf.Min(attackStatuses[i].collider.bounds.min.x - 1.5f * collider.bounds.extents.x,
+                Mathf.Min(attackStatuses[i].collider.bounds.min.x - 2f * collider.bounds.extents.x,
                 attackBoundaries[0]);
 
             // Update the right boundary.
             attackBoundaries[1] =
-                Mathf.Max(attackStatuses[i].collider.bounds.max.x + 1.5f * collider.bounds.extents.x,
+                Mathf.Max(attackStatuses[i].collider.bounds.max.x + 2f * collider.bounds.extents.x,
                 attackBoundaries[1]);
         }
 
@@ -510,10 +513,68 @@ public class BobController : MonoBehaviour
     #endregion
 
 
-    private void TryAttack()
+    #region Bob Attack
+    private void PrepareAttack()
     {
+        attackTimer += Time.deltaTime;
 
+        // If attack is not yet ready or bob is in any attack's range, return.
+        if (attackTimer < 0 || isInRange) return;
+
+        // When attack is ready, attack chance will grow as time.
+        attackDesire = 0.3f * attackTimer;
+        float attackChance = (1 - 1f / (1f + AttackDesire)) * Time.deltaTime;
+
+        // When in dodging state(not in range), bob's attack chance grow according to familiarity.
+        if (isDodging)
+        {
+            attackChance *= 1 + 3 * (attackStatuses[^1].familiarity - 0.8f);
+        }
+
+        // On certain condition, bob tries to conduct attack
+        // if he failed due to lack of appropriate weapon, he wants it.
+        if (UnityEngine.Random.Range(0, 1f) < attackChance)
+        {
+            // Go through the weapon type (from melee to ranged) to find suitable weapon to attack.
+            foreach (Weapon weapon in weapons)
+            {
+                if (Mathf.Abs(transform.position.x - rob.position.x) > weapon.range)
+                {
+                    continue;
+                }
+                // Conduct attack and reset cooldown if he has the weapon.
+                else if (weapon.isOwned)
+                {
+                    Debug.Log("Bob attacked!");
+                    StartCoroutine(ConductAttack(weapon));
+                    attackTimer = -attackCooldown;
+                    return;
+                }
+                // If he does not have it, he wants it, also reset cooldown.
+                else if (!weapon.isOwned)
+                {
+                    Debug.Log("Bob has no weapon! Bob wants a " + weapon.name + "!");
+                    weapon.WantIt();
+                    attackTimer = -0.7f * attackCooldown;
+                    return;
+                }
+            }
+        }
     }
+
+    private IEnumerator ConductAttack(Weapon weapon)
+    {
+        isAttacking = true;
+
+        yield return new WaitForSeconds(weapon.timeBeforeAttack);
+
+        // Deal damage
+
+        yield return new WaitForSeconds(weapon.totalActionTime - weapon.timeBeforeAttack);
+
+        isAttacking = false;
+    }
+    #endregion
 
 
     #region Help Functions
@@ -550,6 +611,16 @@ public class BobController : MonoBehaviour
 
         transform.position = respawnPos.position;
         overallFamiliarity = 1;
+
+        // Update bob weapons.
+        attackCooldown *= 0.9f;
+        attackTimer = -10f;
+
+        foreach (Weapon weapon in weapons)
+        {
+            weapon.GetWeapon();
+        }
+
         EventBus<BobRespawnEvent>.Raise(new BobRespawnEvent() { });
         isFreeze = false;
 
@@ -568,7 +639,8 @@ public class Weapon
     public int id;
     public bool isOwned = false;
     public float range;
-    public float damage;
+    public float timeBeforeAttack;
+    public float totalActionTime;
 
     private float desire = 0;
 
