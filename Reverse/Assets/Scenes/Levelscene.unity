@@ -1499,6 +1499,14 @@ PrefabInstance:
       propertyPath: m_Navigation.m_Mode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7232378466112396978, guid: 9ea0b72603033a94d98f351f071052a9, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232378466112396978, guid: 9ea0b72603033a94d98f351f071052a9, type: 3}
+      propertyPath: m_MinValue
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2181718099221632918, guid: 9ea0b72603033a94d98f351f071052a9, type: 3}
     - {fileID: 7194466298593211157, guid: 9ea0b72603033a94d98f351f071052a9, type: 3}
@@ -2439,6 +2447,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bob
       objectReference: {fileID: 0}
+    - target: {fileID: 2190521303587719411, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2296713999855483760, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2567,6 +2579,10 @@ PrefabInstance:
       propertyPath: rob
       value: 
       objectReference: {fileID: 80024057}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: robBasics
+      value: 
+      objectReference: {fileID: 1352029231}
     - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: respawnPos
       value: 
@@ -2716,6 +2732,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4901174153707563952, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      propertyPath: timeBetweenSpawns
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6686773402716299476, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.8594713

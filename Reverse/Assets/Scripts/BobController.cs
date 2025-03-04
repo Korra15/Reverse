@@ -47,6 +47,7 @@ public class BobController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform rob;
+    [SerializeField] private RobBasics robBasics;
     [SerializeField] private Transform respawnPos;
     private Transform desiredPos;
     private Collider2D collider;
@@ -171,9 +172,6 @@ public class BobController : MonoBehaviour
 
         //    AttackComing(testCollider, attackOccurTimes, attackDurationTemp);
         //}
-
-        CheckDeath();
-
         PrepareAttack();
     }
 
@@ -510,6 +508,7 @@ public class BobController : MonoBehaviour
         if (attackStatus.isInRange)
         {
             health -= 1.0f;
+            CheckDeath();
             StartCoroutine(Blink());
         }
 
@@ -595,6 +594,7 @@ public class BobController : MonoBehaviour
         animator.SetTrigger(weapon.name);
 
         yield return new WaitForSeconds(weapon.timeBeforeAttack);
+        robBasics.TakeHealth(1 + dripCounter); //scaled it by dripcounter for now
 
         // Deal damage
 

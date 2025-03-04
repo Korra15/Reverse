@@ -17,6 +17,8 @@ public class RobBasics : MonoBehaviour
     //variables
     //rob values
     public int health = 100;
+    [SerializeField] private int startingHealth = 20;
+    public float StartingHealth => startingHealth;
     public int moveSpd = 2;
 
     // Use this to manage attacks in the inspector (including colliders).
@@ -46,10 +48,33 @@ public class RobBasics : MonoBehaviour
 
     [SerializeField] private Image attack1, attack2, attack3;
 
+    private EventBinding<BobRespawnEvent> bobRespawnEvent;
+
+    /// <summary>
+    /// Reset Robs health on bob respawn
+    /// </summary>
+    private void OnEnable()
+    {
+        bobRespawnEvent = new EventBinding<BobRespawnEvent>(() =>
+        {
+            health = startingHealth;
+            EventBus<RobHealthDecrease>.Raise(new RobHealthDecrease()
+            {
+            });
+        });
+        
+        EventBus<BobRespawnEvent>.Register(bobRespawnEvent);
+    }
+
+    private void OnDisable()
+    {
+        EventBus<BobRespawnEvent>.Deregister(bobRespawnEvent);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        health = 20;
+        health = startingHealth;
         //moveSpd = 2;
         isAttacking = false;
         animator = gameObject.GetComponent<Animator>();

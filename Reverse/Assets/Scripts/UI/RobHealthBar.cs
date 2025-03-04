@@ -29,6 +29,6 @@ public class RobHealthBar : MonoBehaviour
 
     private void DecreaseRobHealth()
     {
-        robHealthBar.value = rob.health * 0.01f; 
+        robHealthBar.value = rob.health / rob.StartingHealth; 
     }
 }

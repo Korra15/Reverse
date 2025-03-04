@@ -26,13 +26,13 @@ public class LightningAttack : MonoBehaviour
                 attackBoundaries = collider,
                 occurTimes =  0,
                 duration = .1f
-
             });
         }
 
         if (other.gameObject.CompareTag("Rob"))
         {
-            print("LIGHTING HIT ROB");
+            other.GetComponent<RobBasics>().TakeHealth(1);
         }
+        
     }
 }
