@@ -594,7 +594,7 @@ public class BobController : MonoBehaviour
         animator.SetTrigger(weapon.name);
 
         yield return new WaitForSeconds(weapon.timeBeforeAttack);
-        robBasics.TakeHealth(1 + dripCounter); //scaled it by dripcounter for now
+        robBasics.TakeHealth(dripCounter); //scaled it by dripcounter for now
 
         // Deal damage
 
