@@ -661,7 +661,8 @@ public class BobController : MonoBehaviour
         isFreeze = false;
 
         // Upgrade the drip
-        drip[++dripCounter].SetActive(true);
+        if (dripCounter + 1 < drip.Length) drip[++dripCounter].SetActive(true);
+
 
         // Clear all attack info.
         attackStatuses.Clear();
