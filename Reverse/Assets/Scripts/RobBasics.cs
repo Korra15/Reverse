@@ -201,6 +201,7 @@ public class Attack
     public int id;
     public float occurTimes;
 
+    public bool hasInfluence;
     public float damage;
     public float timeBeforeHit;
     public float totalActionTime;
@@ -212,6 +213,8 @@ public class Attack
     {
         get
         {
+            if (!hasInfluence) return 0;
+
             float localX = Mathf.Abs(collider.transform.localPosition.x);
             float extentX = collider.bounds.extents.x;
 
@@ -223,6 +226,8 @@ public class Attack
     {
         get
         {
+            if (!hasInfluence) return 0;
+
             float localX = Mathf.Abs(collider.transform.localPosition.x);
             float extentX = collider.bounds.extents.x;
 

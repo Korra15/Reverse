@@ -111,15 +111,27 @@ MonoBehaviour:
   isDodging: 0
   health: 0
   overallFamiliarity: 0
-  maxSpeed: 1.8
+  maxSpeed: 2.2
   driveForceScale: 2
   randomForceScale: 20
   panicTime: 1
   dodgeErrorScale: 0.5
-  fleeForceScale: 10
-  weapons: []
+  fleeForceScale: 15
+  weapons:
+  - name: sword
+    id: 1
+    isOwned: 1
+    range: 2.5
+    timeBeforeAttack: 0.7
+    totalActionTime: 1.5
+  - name: bow
+    id: 2
+    isOwned: 0
+    range: 7
+    timeBeforeAttack: 1.2
+    totalActionTime: 2
   attackDesire: 0
-  attackCooldown: 0
+  attackCooldown: 5
   attackTimer: 0
   rob: {fileID: 0}
   respawnPos: {fileID: 0}
