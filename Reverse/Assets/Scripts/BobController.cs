@@ -388,16 +388,15 @@ public class BobController : MonoBehaviour
         AttackStatus attack = new AttackStatus(null, 0, 0);
 
         // Operate only when Bob's in an attack range.
-        for (int i = -1; i < attackStatuses.Count; )
+        for (int i = 0; i < attackStatuses.Count; i++ )
         {
             // if attack list is empty, return.
             if (attackStatuses.Count == 0) { return; }
-
-            ++i;
+            
 
             // if any of the collider match 'other', break the loop.
             // NOTE: when an attack ends, it will be removed from list, causing an index change here. This can cause non-crashing errors.
-            if (other == attackStatuses[i].collider)
+            if ( attackStatuses.Count > 0 && other == attackStatuses[i].collider)
             {
                 //Debug.Log("Attack index: " + i);
                 attack = attackStatuses[i];
