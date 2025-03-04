@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputTracker : MonoBehaviour
 {
-
+    [SerializeField] private float comboWindow = 0.5f;
     [SerializeField] private float comboTimeBetweenInputs = 1.0f;
     
     private float timeSinceLastInput = 2.0f;
@@ -61,7 +61,7 @@ public class InputTracker : MonoBehaviour
     /// Stores an input, will store a combo if the time has expired
     /// </summary>
     /// <param name="input"></param>
-    public void AddInput(string inputId, Collider2D attackCollider, float duration)
+    public void AddInput(string inputId, Collider2D attackCollider, float timeBeforeHit, float actionTime)
     {
         //clear combo if taken too long to start new one
         if (activeComboHolder.Count >= 3)
@@ -71,7 +71,7 @@ public class InputTracker : MonoBehaviour
         }
         
         //combotimesincelast update
-        comboTimeBetweenInputs = 2.0f + duration;
+        comboTimeBetweenInputs = comboWindow + actionTime;
         
         //add to combo and reset time
         activeComboHolder.Add(inputId);
@@ -113,7 +113,7 @@ public class InputTracker : MonoBehaviour
         EventBus<RobAttackEvent>.Raise(new RobAttackEvent()
         {
             attackBoundaries = attackCollider,
-            duration = duration,
+            duration = timeBeforeHit,
             occurTimes = comboNum
         });
     }

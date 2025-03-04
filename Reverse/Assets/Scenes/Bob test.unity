@@ -527,6 +527,14 @@ PrefabInstance:
       propertyPath: bob
       value: 
       objectReference: {fileID: 538397703}
+    - target: {fileID: 854957780991605698, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[0].damage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 854957780991605698, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[1].damage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3622673147349476841, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_Name
       value: Rob
@@ -570,6 +578,14 @@ PrefabInstance:
     - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: bobPos
+      value: 
+      objectReference: {fileID: 538397703}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[1].totalActionTime
+      value: 2.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -633,6 +649,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1684559203}
     - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: maxSpeed
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: respawnPos
       value: 
       objectReference: {fileID: 572078953}
@@ -640,6 +660,66 @@ PrefabInstance:
       propertyPath: testCollider
       value: 
       objectReference: {fileID: 2047795421}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: attackCooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: fleeForceScale
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[0].id
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[1].id
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[0].name
+      value: sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[1].name
+      value: bow
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[0].range
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[1].range
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[0].isOwned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[1].isOwned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[0].totalActionTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[1].totalActionTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[0].timeBeforeAttack
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463629621199469243, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
+      propertyPath: weapons.Array.data[1].timeBeforeAttack
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
