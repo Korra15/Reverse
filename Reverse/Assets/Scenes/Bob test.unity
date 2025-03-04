@@ -385,6 +385,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
   m_PrefabInstance: {fileID: 175128876940914006}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1795502829 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6521853675322666948, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+  m_PrefabInstance: {fileID: 175128876940914006}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2047795420
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +532,14 @@ PrefabInstance:
       propertyPath: bob
       value: 
       objectReference: {fileID: 538397703}
+    - target: {fileID: 854957780991605698, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[0].damage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 854957780991605698, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[1].damage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3622673147349476841, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_Name
       value: Rob
@@ -570,6 +583,38 @@ PrefabInstance:
     - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: bobPos
+      value: 
+      objectReference: {fileID: 538397703}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[2].id
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[2].collider
+      value: 
+      objectReference: {fileID: 1795502829}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[2].hasInfluence
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[2].timeBeforeHit
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[1].totalActionTime
+      value: 2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: attacks.Array.data[2].totalActionTime
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -142,6 +142,8 @@ public class BobsTarget : MonoBehaviour
 
             foreach (Attack attack in attacks)
             {
+                if (!attack.hasInfluence) continue;
+
                 // TO DO: known issue.
                 // Calculate cost according to how far it is to escape an attack from a test point.
                 float errorToMax = attack.MaxRange - testPos[i];
