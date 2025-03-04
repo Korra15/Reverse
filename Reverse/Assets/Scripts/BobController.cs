@@ -51,6 +51,7 @@ public class BobController : MonoBehaviour
     private Transform desiredPos;
     private Collider2D collider;
     private Rigidbody2D rigidbody;
+    private Animator animator;
 
 
     #region EVENT STUFF
@@ -96,6 +97,7 @@ public class BobController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
+        animator = GetComponentInChildren<Animator>();
 
         if (rob == null)
         {
@@ -118,7 +120,7 @@ public class BobController : MonoBehaviour
         fleeDirection = 0;
         dodgeTarget = new Vector3(float.MaxValue, 0, 0);
 
-        attackTimer = -10f;
+        attackTimer = -7f;
 
         if (weapons.Length != 0)
         {
@@ -213,6 +215,26 @@ public class BobController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        #region Animation
+        if (rigidbody.velocity.x > 0.2f)
+        {
+            transform.localScale = new Vector3(1, transform.localScale.y, 1);
+        }
+        else if (rigidbody.velocity.x < -0.2f)
+        {
+            transform.localScale = new Vector3(-1, transform.localScale.y, 1);
+        }
+
+        if (Mathf.Abs(rigidbody.velocity.x) > 0.2f)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+        #endregion
+
         ApplyDrivingForce();
         LimitSpeed();
     }
@@ -565,6 +587,8 @@ public class BobController : MonoBehaviour
     private IEnumerator ConductAttack(Weapon weapon)
     {
         isAttacking = true;
+        rigidbody.velocity = Vector3.zero;
+        animator.SetTrigger(weapon.name);
 
         yield return new WaitForSeconds(weapon.timeBeforeAttack);
 
@@ -596,11 +620,19 @@ public class BobController : MonoBehaviour
 
     private IEnumerator Blink()
     {
-        transform.GetComponent<SpriteRenderer>().color = Color.red;
+        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.color = Color.red;
+        }
 
         yield return new WaitForSeconds(0.2f);
 
-        transform.GetComponent<SpriteRenderer>().color = Color.white;
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.color = Color.white;
+        }
     }
 
     private IEnumerator Killed()
