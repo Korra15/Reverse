@@ -126,7 +126,7 @@ public class RobBasics : MonoBehaviour
         {
             animator.SetTrigger("trMelee");
             StartCoroutine(ConductAttack(attacks[MELEE]));
-            //AttackMelee();
+            StartCoroutine(EnableCollider(attacks[MELEE]));
             AttackImageAnimaiton(attack1, attacks[MELEE].totalActionTime);
         }
 
@@ -136,7 +136,7 @@ public class RobBasics : MonoBehaviour
             animator.SetTrigger("trRanged");
             GameObject rock = GameObject.Instantiate(magnetoRock, rockSpawnPos.position, Quaternion.identity, transform);
             StartCoroutine(ConductAttack(attacks[RANGED]));
-            //AttackRanged();
+            StartCoroutine(EnableCollider(attacks[RANGED]));
             AttackImageAnimaiton(attack2, attacks[RANGED].totalActionTime);
         }
 
@@ -145,7 +145,7 @@ public class RobBasics : MonoBehaviour
         {
             animator.SetTrigger("trAoe");
             StartCoroutine(ConductAttack(attacks[AOE]));
-            //AttackAoE();
+            StartCoroutine(EnableCollider(attacks[AOE]));
             AttackImageAnimaiton(attack3, attacks[AOE].totalActionTime);
         }
     }
@@ -155,6 +155,18 @@ public class RobBasics : MonoBehaviour
         // Set isAttacking to true, so that all other inputs are banned.
         isAttacking = true;
 
+        // Give input tracker attack info.
+        inputTracker.AddInput(attack.id.ToString(), attack.collider, attack.timeBeforeHit, attack.totalActionTime);
+
+        // wait until the animation ends.
+        yield return new WaitForSeconds(attack.totalActionTime);
+
+        // set isAttcaking to false, so that other inputs are available.
+        isAttacking = false;
+    }
+
+    private IEnumerator EnableCollider(Attack attack)
+    {
         // Activate the corresponding attack object.
         attack.collider.gameObject.SetActive(true);
 
@@ -164,20 +176,11 @@ public class RobBasics : MonoBehaviour
             attack.collider.gameObject.transform.position = new Vector3(bobPos.position.x, bobPos.position.y);
         }
 
-        // Give input tracker attack info.
-        inputTracker.AddInput(attack.id.ToString(), attack.collider, attack.timeBeforeHit);
-
         // wait until hitbox ends.
-        yield return new WaitForSeconds(attack.timeBeforeHit + 0.05f);
+        yield return new WaitForSeconds(attack.timeBeforeHit);
 
         // Deactivate the attack object.
         attack.collider.gameObject.SetActive(false);
-
-        // wait until the animation ends.
-        yield return new WaitForSeconds(attack.totalActionTime - attack.timeBeforeHit);
-
-        // set isAttcaking to false, so that other inputs are available.
-        isAttacking = false;
     }
 
     ///<summary> Calling this for UI animaiton of selected attack button </summary>
