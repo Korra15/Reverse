@@ -53,6 +53,10 @@ public class BobController : MonoBehaviour
     private Rigidbody2D rigidbody;
     private Animator animator;
 
+    [Header("Bob's Drip")]
+    [SerializeField] GameObject[] drip;
+    int dripCounter = -1;
+
 
     #region EVENT STUFF
     private EventBinding<RobAttackEvent> robAttackEventBinding;
@@ -655,6 +659,9 @@ public class BobController : MonoBehaviour
 
         EventBus<BobRespawnEvent>.Raise(new BobRespawnEvent() { });
         isFreeze = false;
+
+        // Upgrade the drip
+        drip[++dripCounter].SetActive(true);
 
         // Clear all attack info.
         attackStatuses.Clear();
