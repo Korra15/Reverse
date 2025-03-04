@@ -40,6 +40,8 @@ public class RobBasics : MonoBehaviour
     [SerializeField]
     private Transform rockSpawnPos;
     [SerializeField]
+    private GameObject hellfire;
+    [SerializeField]
     private Transform bobPos;
 
     [SerializeField] private Image attack1, attack2, attack3;
@@ -144,6 +146,7 @@ public class RobBasics : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Alpha3))
         {
             animator.SetTrigger("trAoe");
+            GameObject go = GameObject.Instantiate(hellfire, new Vector3(bobPos.position.x, 0f, 0f), Quaternion.identity);
             StartCoroutine(ConductAttack(attacks[AOE]));
             StartCoroutine(EnableCollider(attacks[AOE]));
             AttackImageAnimaiton(attack3, attacks[AOE].totalActionTime);
