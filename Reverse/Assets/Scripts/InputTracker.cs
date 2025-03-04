@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InputTracker : MonoBehaviour
@@ -31,32 +32,12 @@ public class InputTracker : MonoBehaviour
         
         if (timeSinceLastInput > comboTimeBetweenInputs && activeComboHolder.Count > 0)
         {
+            timeSinceLastInput = 0;
             activeComboHolder.Clear();
             EventBus<ClearCombo>.Raise(new ClearCombo()); //event raised to clear combo text
         }
     }
-
-    /*private void LateUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            AddInput("1");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            AddInput("2");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            AddInput("3");
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Debug.Log("Killed Bob");
-            StoreCombo();
-        }
-    }*/
-
+    
     /// <summary>
     /// Stores an input, will store a combo if the time has expired
     /// </summary>
@@ -75,6 +56,7 @@ public class InputTracker : MonoBehaviour
         
         //add to combo and reset time
         activeComboHolder.Add(inputId);
+
         // event raised to store combo to add
         EventBus<AddingToCombo>.Raise(new AddingToCombo()
         {
@@ -124,10 +106,30 @@ public class InputTracker : MonoBehaviour
     private void StoreCombo()
     {
         string combo = string.Join("", activeComboHolder);
-        Debug.Log(combo);
 
         if (comboTracker.ContainsKey(combo)) comboTracker[combo]++;
         else comboTracker.Add(combo, 1);
+        
+        //add sub combos
+        //low key scuffed
+        switch (combo.Length)
+        {
+            case 1:
+                break;
+            case 2:
+                if (comboTracker.ContainsKey(activeComboHolder[0])) comboTracker[activeComboHolder[0]]++;
+                else comboTracker.Add(activeComboHolder[0], 1);
+                break;
+            case 3:
+                if (comboTracker.ContainsKey(activeComboHolder[0])) comboTracker[activeComboHolder[0]]++;
+                else comboTracker.Add(activeComboHolder[0], 1);
+
+                string combo2 = activeComboHolder[0] + activeComboHolder[1];
+                if (comboTracker.ContainsKey(combo2)) comboTracker[combo2]++;
+                else comboTracker.Add(combo2, 1);
+                break;
+        }
+
 
         activeComboHolder.Clear();
         EventBus<ClearCombo>.Raise(new ClearCombo()); //event raised to clear combo text

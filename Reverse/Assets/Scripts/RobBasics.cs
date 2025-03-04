@@ -119,7 +119,7 @@ public class RobBasics : MonoBehaviour
         //move left
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
-            transform.localScale = new Vector2(1, 1);
+            transform.localScale = new Vector2(1.5f, 1.5f);
             animator.SetTrigger("trRun");
             GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpd, 0);
         }
@@ -128,7 +128,7 @@ public class RobBasics : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             animator.SetTrigger("trRun");
-            transform.localScale = new Vector2(-1, 1);
+            transform.localScale = new Vector2(-1.5f, 1.5f);
             GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpd, 0);
         }
 
