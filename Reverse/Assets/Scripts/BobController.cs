@@ -366,6 +366,7 @@ public class BobController : MonoBehaviour
     /// <param name="duration">The duration of this attack (until the hitbox end).</param>
     public void AttackComing(Collider2D attackCollider, float occurTimes, float duration)
     {
+        if (transform.position.x < -13) return;
         // Record the attack info, and start updating its state.
         // This is to check if the OnTriggerStay2D method is reacting to the right collider.
         attackStatuses.Add(new AttackStatus(attackCollider, duration, occurTimes));
