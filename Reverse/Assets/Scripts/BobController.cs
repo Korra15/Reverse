@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class BobController : MonoBehaviour
@@ -31,11 +32,10 @@ public class BobController : MonoBehaviour
     [SerializeField] private float dodgeErrorScale;
     [SerializeField] private float fleeForceScale;
     private float familiarity;
-    private float attackDuration;
     private float fleeDirection;
-    private float[] attackBoundaries = new float[2];
-    private Collider2D attackCollider;
     private Vector3 dodgeTarget;
+    private float[] attackBoundaries = new float[2];
+    private List<AttackStatus> attackStatuses = new List<AttackStatus>(0);
 
     [Header("Attack Properties")]
     [SerializeField] private Weapon[] weapons;
@@ -114,7 +114,6 @@ public class BobController : MonoBehaviour
         health = maxHealth;
 
         familiarity = 0;
-        attackDuration = 0;
         fleeDirection = 0;
         dodgeTarget = new Vector3(float.MaxValue, 0, 0);
 
@@ -153,7 +152,7 @@ public class BobController : MonoBehaviour
         //testCollider.gameObject.SetActive(false);
     }
 
-
+    #region Update Methods
     private void Update()
     {
         // For temporary test only.
@@ -169,13 +168,51 @@ public class BobController : MonoBehaviour
         CheckDeath();
     }
 
+    private void CheckDeath()
+    {
+        if (health > 0.0f) return;
+
+        EventBus<BobDieEvent>.Raise(new BobDieEvent() { });
+
+        maxHealth += 0.4f;
+        health = maxHealth;
+        StartCoroutine(Killed());
+        Debug.Log("Bob is killed!");
+    }
+    #endregion
+
+    #region LateUpdate Methods
+    private void LateUpdate()
+    {
+        CheckState();
+    }
+
+    private void CheckState()
+    {
+        isInRange = false;
+        isDodging = false;
+
+        for (int i = 0; attackStatuses != null && i < attackStatuses.Count; i++)
+        {
+            // Skip the ended attacks.
+            if (attackStatuses[i].hasEnded) continue;
+
+            // if is in active attack's range
+            else if (attackStatuses[i].isInRange)
+            {
+                isInRange = true;
+                isDodging = true;
+            }
+        }
+    }
+    #endregion
+
 
     private void FixedUpdate()
     {
         ApplyDrivingForce();
         LimitSpeed();
     }
-
 
     /// <summary>
     /// Limit Bob's maximum speed.
@@ -198,7 +235,6 @@ public class BobController : MonoBehaviour
             rigidbody.velocity = new Vector3(-maxSpeed * dodgeMult, rigidbody.velocity.y, 0);
         }
     }
-
 
     private void ApplyDrivingForce()
     {
@@ -267,7 +303,6 @@ public class BobController : MonoBehaviour
 
         // If is in the range, read coming attack information.
         familiarity = occurTimes / (occurTimes + 2f);
-        attackDuration = duration;
 
         // Compare distance of 2 boundaries. Possibly make mistake when unfamiliar.
         // Start at a random order.
@@ -292,7 +327,7 @@ public class BobController : MonoBehaviour
     #endregion
 
 
-    #region Bob Dodge
+     #region Bob Dodge
     /// <summary>
     /// Input info of coming attack (collider2D ver.).
     /// </summary>
@@ -301,13 +336,13 @@ public class BobController : MonoBehaviour
     /// <param name="duration">The duration of this attack (until the hitbox end).</param>
     public void AttackComing(Collider2D attackCollider, float occurTimes, float duration)
     {
-        // Record the attack collider info.
+        // Record the attack info, and start updating its state.
         // This is to check if the OnTriggerStay2D method is reacting to the right collider.
-        this.attackCollider = attackCollider;
+        attackStatuses.Add(new AttackStatus(attackCollider, duration, occurTimes));
+        StartCoroutine(UpdateAttackState(attackStatuses[^1]));
 
         // Store a familiarity according to attack occurred times.
         familiarity = occurTimes / (occurTimes + 2f);
-        attackDuration = duration;
     }
 
 
@@ -318,25 +353,70 @@ public class BobController : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerStay2D(Collider2D other)
     {
-        // Operate only when Bob's in Rob's attack range and is not already dodging.
-        if (other != attackCollider)
-            return;
+        AttackStatus attack = new AttackStatus(null, 0, 0);
 
-        isInRange = true;
+        // Operate only when Bob's in an attack range.
+        for (int i = -1; i < attackStatuses.Count; )
+        {
+            // if attack list is empty, return.
+            if (attackStatuses.Count == 0) { return; }
 
-        // If Bob's already in dodging state, return.
-        if (isFreeze || isDodging)
-            return;
+            ++i;
+
+            // if any of the collider match 'other', break the loop.
+            // NOTE: when an attack ends, it will be removed from list, causing an index change here. This can cause non-crashing errors.
+            if (other == attackStatuses[i].collider)
+            {
+                Debug.Log("Attack index: " + i);
+                attack = attackStatuses[i];
+                break;
+            }
+
+            // if none of the collider matches until the last element, return.
+            if (i == attackStatuses.Count) return;
+        }
+
+
+        /************  UPDATE ATTACK STATE  ************/
+
+        attack.isInRange = true;
+
+        // If Bob has reacted to this attack, return.
+        if (attack.isReacted) return;
+        else attack.isReacted = true;
+
+        // If Bob is currently freezing, return.
+        if (isFreeze) return;
+
+
+        /************  CALCULATE ATTACK INFO  ************/
 
         // Reset attack information.
         dodgeTarget = new Vector3(float.MaxValue, 0, 0);
         fleeDirection = 0;
 
-        // Calculate the attack boundaries.
-        attackBoundaries[0] = other.bounds.min.x - collider.bounds.extents.x;
-        attackBoundaries[1] = other.bounds.max.x + collider.bounds.extents.x;
+        // Initialize attack boundaries.
+        attackBoundaries[0] = transform.position.x;
+        attackBoundaries[1] = transform.position.x;
 
-        Debug.Log(other.bounds.min.x);
+        // Calculate the attack boundaries.
+        for (int i = 0; i < attackStatuses.Count; ++i)
+        {
+            if (attackStatuses[i].hasEnded || !attackStatuses[i].isInRange) continue;
+
+            // Update the left boundary.
+            attackBoundaries[0] =
+                Mathf.Min(attackStatuses[i].collider.bounds.min.x - collider.bounds.extents.x,
+                attackBoundaries[0]);
+
+            // Update the right boundary.
+            attackBoundaries[1] =
+                Mathf.Max(attackStatuses[i].collider.bounds.max.x + collider.bounds.extents.x,
+                attackBoundaries[1]);
+        }
+
+
+        /************  CALCULATE DODGE TARGET  ************/
 
         // Decide which boundary to head for.
         // Start at a random order.
@@ -345,7 +425,7 @@ public class BobController : MonoBehaviour
         {
             // Bob may make mistake by underestimating distance to current target.
             // This is the underestimate multiplier.
-            float calculateError = (0.2f + 0.8f * UnityEngine.Random.Range(familiarity, 1));
+            float calculateError = (UnityEngine.Random.Range(familiarity, 1));
 
             // Compare the boundary with the existing target.
             if (Mathf.Abs(transform.position.x - attackBoundaries[i % 2]) <
@@ -373,8 +453,36 @@ public class BobController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision == attackCollider)
-            isInRange = false;
+        // Operate only when Bob's moving out from an attack range.
+        for (int i = 0; attackStatuses != null && i < attackStatuses.Count; i++)
+        {
+            // if any of the collider match 'other', break the loop.
+            if (collision == attackStatuses[i].collider)
+            {
+                attackStatuses[i].isInRange = false;
+                break;
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Update attack status. Deal damage if is in range at end.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator UpdateAttackState(AttackStatus attackStatus)
+    {
+        yield return new WaitForSeconds(attackStatus.duration);
+
+        // If Bob is still in range at attack end, he will get hurt (red flash for now).
+        if (attackStatus.isInRange)
+        {
+            health -= 1.0f;
+            StartCoroutine(Blink());
+        }
+
+        attackStatus.hasEnded = true;
+        attackStatuses.Remove(attackStatus);
     }
 
 
@@ -385,7 +493,6 @@ public class BobController : MonoBehaviour
     private IEnumerator UpdateDodgingState()
     {
         isFreeze = true;
-        isDodging = false;
 
         // Bob will panic to jump when an attack comes.
         rigidbody.velocity = Vector3.zero;
@@ -395,24 +502,6 @@ public class BobController : MonoBehaviour
         yield return new WaitForSeconds(panicTime * (1 - familiarity));
 
         isFreeze = false;
-        isDodging = true;
-
-        // Bob will stop dodging after the attack is fully ended.
-        yield return new WaitForSeconds(attackDuration - panicTime * (1 - familiarity) - 0.05f);
-
-        //testCollider.gameObject.SetActive(false);
-        isFreeze = false;
-        isDodging = false;
-
-        // If Bob is still in range at attack end, he will get hurt (red flash for now).
-        if (isInRange)
-        {
-            isInRange = false;
-            health -= 1.0f;
-            StartCoroutine(Blink());
-        }
-
-        yield return new WaitForSeconds(0.1f);
     }
     #endregion
 
@@ -420,19 +509,6 @@ public class BobController : MonoBehaviour
     private void TryAttack()
     {
 
-    }
-
-
-    private void CheckDeath()
-    {
-        if (health > 0.0f) return;
-
-        EventBus<BobDieEvent>.Raise(new BobDieEvent() { });
-
-        maxHealth += 0.4f;
-        health = maxHealth;
-        StartCoroutine(Killed());
-        Debug.Log("Bob is killed!");
     }
 
 
@@ -471,6 +547,10 @@ public class BobController : MonoBehaviour
         transform.position = respawnPos.position;
         EventBus<BobRespawnEvent>.Raise(new BobRespawnEvent() { });
         isFreeze = false;
+
+        // Clear all attack info.
+        attackStatuses.Clear();
+        StopAllCoroutines();
     }
     #endregion
 }
@@ -498,5 +578,22 @@ public class Weapon
         {
             isOwned = true;
         }
+    }
+}
+
+public class AttackStatus
+{
+    public Collider2D collider;
+    public float duration;
+    public float familiarity;
+    public bool isReacted = false;
+    public bool isInRange = false;
+    public bool hasEnded = false;
+
+    public AttackStatus(Collider2D collider, float duration, float occurTimes)
+    {
+        this.collider = collider;
+        this.duration = duration;
+        familiarity = occurTimes; // Need update
     }
 }
