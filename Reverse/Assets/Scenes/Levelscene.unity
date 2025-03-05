@@ -425,6 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboWindow: 0.5
   comboTimeBetweenInputs: 1
+  activeComboHolder: []
 --- !u!4 &332327731
 Transform:
   m_ObjectHideFlags: 0
@@ -1588,12 +1589,24 @@ PrefabInstance:
       value: Rob
       objectReference: {fileID: 0}
     - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5162
+      objectReference: {fileID: 0}
+    - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5162
+      objectReference: {fileID: 0}
+    - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5162
+      objectReference: {fileID: 0}
+    - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.25
       objectReference: {fileID: 0}
     - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.3
+      value: -1.38
       objectReference: {fileID: 0}
     - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_LocalPosition.z
