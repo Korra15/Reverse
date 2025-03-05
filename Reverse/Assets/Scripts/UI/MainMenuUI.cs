@@ -53,14 +53,14 @@ public class MainMenuUI : MonoBehaviour
     private async Task AnimateMenu()
     {
         // Backgound animaitions
-        Task fadeBgTask = mainMenuBackground.DOFade(0, 1.5f).AsyncWaitForCompletion();
-        Task moveBgTask = mainMenuBackground.transform.DOMoveZ(Camera.main.transform.position.z - 2, 1.5f).SetEase(Ease.InOutQuad).AsyncWaitForCompletion();
-        Task scaleBgTask = mainMenuBackground.transform.DOScale(0.8f, 1.5f).AsyncWaitForCompletion();
+        Task fadeBgTask = mainMenuBackground.DOFade(0, 1.5f).SetUpdate(true).AsyncWaitForCompletion();
+        Task moveBgTask = mainMenuBackground.transform.DOMoveZ(Camera.main.transform.position.z - 2, 1.5f).SetEase(Ease.InOutQuad).SetUpdate(true).AsyncWaitForCompletion();
+        Task scaleBgTask = mainMenuBackground.transform.DOScale(0.8f, 1.5f).SetUpdate(true).AsyncWaitForCompletion();
 
         // Button animations
-        Task fadeButtonsTask = mainMenuButtons.GetComponent<CanvasGroup>().DOFade(0, 1.5f).AsyncWaitForCompletion();
-        Task moveButtonsTask = mainMenuButtons.transform.DOMoveZ(Camera.main.transform.position.z + 2, 1.5f).SetEase(Ease.InOutQuad).AsyncWaitForCompletion();
-        Task scaleButtonsTask = mainMenuButtons.transform.DOScale(1.2f, 1.5f).AsyncWaitForCompletion();
+        Task fadeButtonsTask = mainMenuButtons.GetComponent<CanvasGroup>().DOFade(0, 1.5f).SetUpdate(true).AsyncWaitForCompletion();
+        Task moveButtonsTask = mainMenuButtons.transform.DOMoveZ(Camera.main.transform.position.z + 2, 1.5f).SetUpdate(true).SetEase(Ease.InOutQuad).SetUpdate(true).AsyncWaitForCompletion();
+        Task scaleButtonsTask = mainMenuButtons.transform.DOScale(1.2f, 1.5f).SetUpdate(true).AsyncWaitForCompletion();
         await Task.WhenAll(fadeBgTask, moveBgTask, scaleBgTask, fadeButtonsTask, moveButtonsTask, scaleButtonsTask);
     }
 

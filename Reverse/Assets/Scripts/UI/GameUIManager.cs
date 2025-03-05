@@ -33,7 +33,6 @@ public class GameUIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("paused pressed");
             TogglePause();
         }
     }
@@ -78,6 +77,10 @@ public class GameUIManager : MonoBehaviour
     
     public void RestartGame()
     {
+        Time.timeScale = 1;
+        DOTween.Clear(true);
+        DOTween.KillAll();
         SceneManager.LoadScene(2);
     }
+
 }
