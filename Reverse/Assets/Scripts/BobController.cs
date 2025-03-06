@@ -182,7 +182,7 @@ public class BobController : MonoBehaviour
 
         EventBus<BobDieEvent>.Raise(new BobDieEvent() { });
 
-        maxHealth += 0.4f;
+        maxHealth += 0.2f;
         health = maxHealth;
         StartCoroutine(Killed());
         Debug.Log("Bob is killed!");
@@ -559,7 +559,7 @@ public class BobController : MonoBehaviour
 
         // On certain condition, bob tries to conduct attack
         // if he failed due to lack of appropriate weapon, he wants it.
-        if (UnityEngine.Random.Range(0, 1f) < attackChance)
+        if (true)
         {
             // Go through the weapon type (from melee to ranged) to find suitable weapon to attack.
             foreach (Weapon weapon in weapons)
@@ -597,7 +597,7 @@ public class BobController : MonoBehaviour
         animator.SetTrigger(weapon.name);
         if(weapon.id == 2) // If bow attack, spawn a projectile
         {
-            GameObject newArrow = Instantiate(arrow, Vector3.right * Mathf.Sign(dirToRob.magnitude) + new Vector3(0f, -2f, 0f), Quaternion.identity);
+            GameObject newArrow = Instantiate(arrow, this.transform.position + new Vector3(0f, -2f, 0f), Quaternion.identity);
             newArrow.GetComponent<Arrow>().SetDamageAmount(dripCounter / 3);
         }
 
