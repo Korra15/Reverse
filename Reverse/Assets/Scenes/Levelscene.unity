@@ -405,7 +405,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboWindow: 0.5
   comboTimeBetweenInputs: 1
-  activeComboHolder: []
 --- !u!4 &332327731
 Transform:
   m_ObjectHideFlags: 0
@@ -1072,8 +1071,8 @@ Transform:
   - {fileID: 2075935727}
   - {fileID: 189080772}
   - {fileID: 650415701}
-  - {fileID: 1042237229}
   - {fileID: 404058306}
+  - {fileID: 1042237229}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &999508476
@@ -2425,7 +2424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4542926428475917340, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4574077449504125376, guid: 1fd671ad6c504ca4197c0a04f801b284, type: 3}
       propertyPath: m_IsActive
