@@ -103,8 +103,26 @@ public class RobBasics : MonoBehaviour
     public void TakeHealth(int dmg)
     {
         health -= dmg;
+        StartCoroutine(Blink());
         EventBus<RobHealthDecrease>.Raise(new RobHealthDecrease());
         if(health <= 0) SceneManager.LoadScene(endMenuSceneIndex);//hardcoded scene
+    }
+    
+    private IEnumerator Blink()
+    {
+        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.color = Color.red;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.color = Color.white;
+        }
     }
 
     //handles all inputs
