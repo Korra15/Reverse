@@ -1672,6 +1672,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5382946394922975642, guid: 33905fdf8488d524895af23e00d0ce7b, type: 3}
     - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: startingMoveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: attacks.Array.data[2].hasInfluence
       value: 1
       objectReference: {fileID: 0}

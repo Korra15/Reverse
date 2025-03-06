@@ -32,7 +32,7 @@ public static class EventBus<T> where T : IEvent {
     /// Clears event binding
     /// </summary>
     static void Clear() {
-        Debug.Log($"Clearing {typeof(T).Name} bindings");
+        //Debug.Log($"Clearing {typeof(T).Name} bindings");
         bindings.Clear();
     }
 }

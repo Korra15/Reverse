@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Weather;
 
 public class RobBasics : MonoBehaviour
 {
@@ -21,7 +22,10 @@ public class RobBasics : MonoBehaviour
     [SerializeField] private int startingHealth = 20;
     [SerializeField] private int endMenuSceneIndex = 3;
     public float StartingHealth => startingHealth;
-    public int moveSpd = 2;
+    private int moveSpd = 2;
+    [SerializeField] private int speedScalar = 3;
+    [SerializeField] private int startingMoveSpeed;
+    
 
     // Use this to manage attacks in the inspector (including colliders).
     public Attack[] attacks;
@@ -51,6 +55,7 @@ public class RobBasics : MonoBehaviour
     [SerializeField] private Image attack1, attack2, attack3;
 
     private EventBinding<BobRespawnEvent> bobRespawnEvent;
+    private EventBinding<WeatherChanged> weatherChangedEventBinding;
 
     /// <summary>
     /// Reset Robs health on bob respawn
@@ -66,17 +71,38 @@ public class RobBasics : MonoBehaviour
         });
         
         EventBus<BobRespawnEvent>.Register(bobRespawnEvent);
+        
+        weatherChangedEventBinding = new EventBinding<WeatherChanged>((weatherChanged) =>
+        {
+            // Lambda Function: Updates the speed based on weather
+            Weather.State state = weatherChanged.WeatherParameters.weatherState;
+            if (state == State.SnowStorm || state == State.Snowy)
+            {
+                moveSpd = startingMoveSpeed / speedScalar;
+            }
+            else if (state == State.RainStorm || state == State.Rainy) 
+            {
+                moveSpd = startingMoveSpeed * speedScalar;
+            }
+            else
+            {
+                moveSpd = startingMoveSpeed;
+            }
+        });
+        EventBus<WeatherChanged>.Register(weatherChangedEventBinding);
     }
 
     private void OnDisable()
     {
         EventBus<BobRespawnEvent>.Deregister(bobRespawnEvent);
+        EventBus<WeatherChanged>.Deregister(weatherChangedEventBinding);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         health = startingHealth;
+        moveSpd = startingMoveSpeed;
         //moveSpd = 2;
         isAttacking = false;
         animator = gameObject.GetComponent<Animator>();
