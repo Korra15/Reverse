@@ -110,19 +110,14 @@ public class RobBasics : MonoBehaviour
     
     private IEnumerator Blink()
     {
-        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-
-        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
-        {
-            spriteRenderer.color = Color.red;
-        }
-
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        spriteRenderer.color = Color.red;
+        
         yield return new WaitForSeconds(0.2f);
-
-        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
-        {
-            spriteRenderer.color = Color.white;
-        }
+        
+        spriteRenderer.color = Color.white;
+        
     }
 
     //handles all inputs
