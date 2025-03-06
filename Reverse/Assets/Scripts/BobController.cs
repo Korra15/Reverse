@@ -651,6 +651,7 @@ public class BobController : MonoBehaviour
 
         transform.position = respawnPos.position;
         overallFamiliarity = 1;
+        
 
         // Update bob weapons.
         attackCooldown *= 0.9f;
@@ -671,6 +672,12 @@ public class BobController : MonoBehaviour
         // Clear all attack info.
         attackStatuses.Clear();
         StopAllCoroutines();
+        
+        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.color = Color.white;
+        }
     }
     #endregion
 }
