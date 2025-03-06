@@ -592,15 +592,18 @@ public class BobController : MonoBehaviour
     {
         isAttacking = true;
         rigidbody.velocity = Vector3.zero;
+        Vector3 dirToRob = rob.position - this.transform.position;
+        transform.forward *= Mathf.Sign(dirToRob.magnitude);
         animator.SetTrigger(weapon.name);
         if(weapon.id == 2) // If bow attack, spawn a projectile
         {
-            Instantiate(arrow, this.transform.forward, Quaternion.identity);
+            GameObject newArrow = Instantiate(arrow, Vector3.right * Mathf.Sign(dirToRob.magnitude) + new Vector3(0f, -2f, 0f), Quaternion.identity);
+            newArrow.GetComponent<Arrow>().SetDamageAmount(dripCounter / 3);
         }
 
 
         yield return new WaitForSeconds(weapon.timeBeforeAttack);
-        robBasics.TakeHealth(dripCounter/3); //scaled it by dripcounter for now
+        if(weapon.id != 2) robBasics.TakeHealth(dripCounter/3); //scaled it by dripcounter for now
 
         yield return new WaitForSeconds(weapon.totalActionTime - weapon.timeBeforeAttack);
 
@@ -668,16 +671,16 @@ public class BobController : MonoBehaviour
         // Upgrade the drip
         if (dripCounter + 1 < drip.Length) drip[++dripCounter].SetActive(true);
 
-
-        // Clear all attack info.
-        attackStatuses.Clear();
-        StopAllCoroutines();
-        
         SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer spriteRenderer in spriteRenderers)
         {
             spriteRenderer.color = Color.white;
         }
+        isAttacking = false;
+
+        // Clear all attack info.
+        attackStatuses.Clear();
+        StopAllCoroutines();
     }
     #endregion
 }
