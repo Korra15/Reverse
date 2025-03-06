@@ -2,17 +2,6 @@ using UnityEngine;
 
 namespace Weather
 {
-    public enum State
-    {
-        Sunny,
-        LightRain,
-        Rainy,
-        RainStorm,
-        LightSnow,
-        Snowy,
-        SnowStorm
-
-    }
     public class WeatherState : MonoBehaviour
     {
         private int currentStateIndex;
@@ -67,7 +56,7 @@ namespace Weather
             currentStateIndex = Random.Range(0, weatherStateOrder.Length);
 
             print("The Weather is now " + weatherStateOrder[currentStateIndex]);
-            
+
             EventBus<WeatherChanged>.Raise(new WeatherChanged()
             {
                 WeatherParameters = weatherStateOrder[currentStateIndex]

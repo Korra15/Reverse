@@ -810,6 +810,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionDuration: 5
+--- !u!1 &620381027 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8045745450066511639, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+  m_PrefabInstance: {fileID: 2320923233456219856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &620381034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620381027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660e5b7e05f9d1942b2a283ac1c9c4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foregroundObject: {fileID: 1042237227}
+  foregroundDefault: {fileID: 21300000, guid: 955679a284f764449ae71461e5488aff, type: 3}
+  foregroundSnowy: {fileID: 21300000, guid: 1a3f3f8e37483b74a974789e990f3a60, type: 3}
+  foregroundRainy: {fileID: 21300000, guid: b21e740c1dcfda64687363ce50626fd7, type: 3}
 --- !u!1 &650415699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,7 +1256,7 @@ SpriteRenderer:
   m_SortingLayerID: -1827241487
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 955679a284f764449ae71461e5488aff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a3f3f8e37483b74a974789e990f3a60, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2433,7 +2454,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8045745450066511639, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 620381034}
   m_SourcePrefab: {fileID: 100100000, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
