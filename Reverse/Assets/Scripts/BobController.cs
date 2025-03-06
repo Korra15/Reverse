@@ -49,6 +49,7 @@ public class BobController : MonoBehaviour
     [SerializeField] private Transform rob;
     [SerializeField] private RobBasics robBasics;
     [SerializeField] private Transform respawnPos;
+    [SerializeField] private GameObject arrow;
     private Transform desiredPos;
     private Collider2D collider;
     private Rigidbody2D rigidbody;
@@ -592,6 +593,11 @@ public class BobController : MonoBehaviour
         isAttacking = true;
         rigidbody.velocity = Vector3.zero;
         animator.SetTrigger(weapon.name);
+        if(weapon.id == 2) // If bow attack, spawn a projectile
+        {
+            Instantiate(arrow, this.transform.forward, Quaternion.identity);
+        }
+
 
         yield return new WaitForSeconds(weapon.timeBeforeAttack);
         robBasics.TakeHealth(dripCounter/3); //scaled it by dripcounter for now
