@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RobBasics : MonoBehaviour
@@ -18,6 +19,7 @@ public class RobBasics : MonoBehaviour
     //rob values
     public int health = 100;
     [SerializeField] private int startingHealth = 20;
+    [SerializeField] private int endMenuSceneIndex = 3;
     public float StartingHealth => startingHealth;
     public int moveSpd = 2;
 
@@ -102,6 +104,7 @@ public class RobBasics : MonoBehaviour
     {
         health -= dmg;
         EventBus<RobHealthDecrease>.Raise(new RobHealthDecrease());
+        if(health <= 0) SceneManager.LoadScene(endMenuSceneIndex);//hardcoded scene
     }
 
     //handles all inputs
