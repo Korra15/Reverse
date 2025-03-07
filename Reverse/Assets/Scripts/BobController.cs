@@ -23,6 +23,7 @@ public class BobController : MonoBehaviour
 
     private float maxHealth = 1.0f;
     private bool isInAnimation;
+    private int killCtr = 0;
 
     [Header("Moving Properties")]
     [SerializeField] private float maxSpeed;
@@ -58,6 +59,8 @@ public class BobController : MonoBehaviour
     [Header("Bob's Drip")]
     [SerializeField] GameObject[] drip;
     int dripCounter = -1;
+
+
 
 
     #region EVENT STUFF
@@ -180,8 +183,8 @@ public class BobController : MonoBehaviour
     {
         if (health > 0.0f) return;
 
-        EventBus<BobDieEvent>.Raise(new BobDieEvent() { });
-
+        killCtr++;
+        EventBus<BobDieEvent>.Raise(new BobDieEvent { });
         maxHealth += 0.2f;
         health = maxHealth;
         StartCoroutine(Killed());
@@ -665,7 +668,9 @@ public class BobController : MonoBehaviour
             weapon.GetWeapon();
         }
 
-        EventBus<BobRespawnEvent>.Raise(new BobRespawnEvent() { });
+        EventBus<BobRespawnEvent>.Raise(new BobRespawnEvent() {
+            killCtr = killCtr
+        });
         isFreeze = false;
 
         // Upgrade the drip

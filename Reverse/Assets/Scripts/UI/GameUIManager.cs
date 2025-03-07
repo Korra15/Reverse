@@ -10,7 +10,6 @@ public class GameUIManager : MonoBehaviour
 {
     private bool isPaused = false;
 
-
     [Header("PauseMenu Buttons")]
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button optionsButton;
@@ -21,7 +20,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] RectTransform pauseMenuRect;
     [SerializeField] float topPosY, middlePosY;
-    [SerializeField] float tweenDuration;
+    [SerializeField] float tweenDuration;   
 
     private void Start()
     {

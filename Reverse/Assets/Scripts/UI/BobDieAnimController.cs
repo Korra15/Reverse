@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using TMPro;
 
 public class BobDieAnimController : MonoBehaviour
 {
+    [Header("Kill Counter")]
+    [SerializeField] private TextMeshProUGUI killCounter;
+
     private EventBinding<BobDieEvent> bobDieEvent;
     private EventBinding<BobRespawnEvent> bobRespawnEvent;
     private Animator robDieAnimator;
@@ -34,8 +38,9 @@ public class BobDieAnimController : MonoBehaviour
         robDieAnimator.SetTrigger("BobDied");
     }
 
-    private void TriggerHideAnimation()
+    private void TriggerHideAnimation(BobRespawnEvent eventData)
     {
         robDieAnimator.SetTrigger("BobRespawned");
+        killCounter.text = eventData.killCtr.ToString();
     }
 }

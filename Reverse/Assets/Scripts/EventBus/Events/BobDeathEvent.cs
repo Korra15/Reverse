@@ -1,6 +1,6 @@
 public struct BobDieEvent : IEvent
 {
-    public int killCtr;
+
 }
 
 /// <summary>
@@ -8,5 +8,5 @@ public struct BobDieEvent : IEvent
 /// </summary>
 public struct BobRespawnEvent : IEvent
 {
-
+    public int killCtr;
 }
