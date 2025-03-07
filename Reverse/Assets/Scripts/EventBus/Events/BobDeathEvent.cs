@@ -1,6 +1,6 @@
 public struct BobDieEvent : IEvent
 {
-    
+    public int killCtr;
 }
 
 /// <summary>
