@@ -43,20 +43,23 @@ namespace Weather
 
         private void LerpBackgrounds(Weather.State state, float t)
         {
-            currentForegroundObject.color = new Color(1,1,1, Mathf.Lerp(currentForegroundObject.color.a, 0.0f, t));
+            currentForegroundObject.color = new Color(1,1,1, Mathf.Lerp(1.0f, 0.0f, t));
             
             //lerp to snow
             if (state == State.SnowStorm || state == State.Snowy)
             {
-                foregroundObjectSnowy.color = new Color(1,1,1, Mathf.Lerp( foregroundObjectSnowy.color.a, 1, t));
+                foregroundObjectSnowy.color = new Color(1,1,1, Mathf.Lerp( 0.0f, 1, t));
+                Debug.Log("SNOW" +  foregroundObjectSnowy.color.a);
             }
             else if (state == State.RainStorm || state == State.Rainy) //lerp to rain
             {
-                foregroundObjectRainy.color = new Color(1,1,1, Mathf.Lerp(foregroundObjectRainy.color.a, 1, t));
+                foregroundObjectRainy.color = new Color(1,1,1, Mathf.Lerp(0.0f, 1, t));
+                Debug.Log("RAIN" + foregroundObjectRainy.color.a);
             }
             else //lerp to normal
             {
-                foregroundObject.color = new Color(1,1,1, Mathf.Lerp(foregroundObject.color.a, 1, t));
+                foregroundObject.color = new Color(1,1,1, Mathf.Lerp(0.0f, 1, t));
+                Debug.Log("NORMAL" + foregroundObject.color.a);
             }
         }
         
@@ -73,7 +76,6 @@ namespace Weather
             {
                 elapsedTime += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsedTime / transitionDuration);
-                
                 LerpBackgrounds(state, t);
                 yield return null;
             }
@@ -81,17 +83,14 @@ namespace Weather
             //update currentbackground
             if (state == State.SnowStorm || state == State.Snowy)
             {
-                print("snow");
                 currentForegroundObject = foregroundObjectSnowy;
             }
             else if (state == State.RainStorm || state == State.Rainy) //lerp to rain
             {
-                print("rain");
                 currentForegroundObject = foregroundObjectRainy;
             }
             else //lerp to normal
             {
-                print("normal");
                 currentForegroundObject = foregroundObject;
             }
         }
