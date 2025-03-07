@@ -49,17 +49,14 @@ namespace Weather
             if (state == State.SnowStorm || state == State.Snowy)
             {
                 foregroundObjectSnowy.color = new Color(1,1,1, Mathf.Lerp( 0.0f, 1, t));
-                Debug.Log("SNOW" +  foregroundObjectSnowy.color.a);
             }
             else if (state == State.RainStorm || state == State.Rainy) //lerp to rain
             {
                 foregroundObjectRainy.color = new Color(1,1,1, Mathf.Lerp(0.0f, 1, t));
-                Debug.Log("RAIN" + foregroundObjectRainy.color.a);
             }
             else //lerp to normal
             {
                 foregroundObject.color = new Color(1,1,1, Mathf.Lerp(0.0f, 1, t));
-                Debug.Log("NORMAL" + foregroundObject.color.a);
             }
         }
         
