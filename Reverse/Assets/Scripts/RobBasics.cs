@@ -22,9 +22,10 @@ public class RobBasics : MonoBehaviour
     [SerializeField] private int startingHealth = 20;
     [SerializeField] private int endMenuSceneIndex = 3;
     public float StartingHealth => startingHealth;
-    private int moveSpd = 2;
+    public int moveSpd = 2;
     [SerializeField] private int speedScalar = 3;
     [SerializeField] private int startingMoveSpeed;
+    
     
 
     // Use this to manage attacks in the inspector (including colliders).

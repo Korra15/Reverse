@@ -1684,6 +1684,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5382946394922975642, guid: 33905fdf8488d524895af23e00d0ce7b, type: 3}
     - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
+      propertyPath: speedScalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: startingMoveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -2649,7 +2653,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeatherManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5473835556493284470, guid: 2dbe2cc07f4651e439eb70de1a9b63c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
