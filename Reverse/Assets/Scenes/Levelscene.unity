@@ -830,7 +830,7 @@ MonoBehaviour:
   foregroundObject: {fileID: 1042237228}
   foregroundObjectSnowy: {fileID: 1636751753}
   foregroundObjectRainy: {fileID: 1397880416}
-  transitionDuration: 60
+  transitionDuration: 10
 --- !u!1 &650415699
 GameObject:
   m_ObjectHideFlags: 0
