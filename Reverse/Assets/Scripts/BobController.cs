@@ -517,6 +517,7 @@ public class BobController : MonoBehaviour
         }
         else
         {
+            EventBus<RobMissedEvent>.Raise(new RobMissedEvent { });
             Debug.Log("Missed");
         }
 
