@@ -27,8 +27,7 @@ public class RobMissedAnimController : MonoBehaviour
 
     private void TriggerPlayAnimation()
     {
-        //robMissedAnimator.Play();
-        //robMissedAnimator.SetTrigger("RobMissed");
+        robMissedAnimator.SetTrigger("RobMissed");
     }
 
 }
