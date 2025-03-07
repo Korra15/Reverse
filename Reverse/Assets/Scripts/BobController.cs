@@ -515,8 +515,12 @@ public class BobController : MonoBehaviour
             CheckDeath();
             StartCoroutine(Blink());
         }
+        else
+        {
+            Debug.Log("Missed");
+        }
 
-        attackStatus.hasEnded = true;
+            attackStatus.hasEnded = true;
         attackStatuses.Remove(attackStatus);
     }
 
