@@ -22,9 +22,9 @@ public class RobBasics : MonoBehaviour
     [SerializeField] private int startingHealth = 20;
     [SerializeField] private int endMenuSceneIndex = 3;
     public float StartingHealth => startingHealth;
-    public int moveSpd = 2;
-    [SerializeField] private int speedScalar = 3;
-    [SerializeField] private int startingMoveSpeed;
+    public float moveSpd = 2;
+    [SerializeField] private float speedScalar = 3;
+    [SerializeField] private float startingMoveSpeed;
     
     
 
@@ -52,6 +52,12 @@ public class RobBasics : MonoBehaviour
     private GameObject hellfire;
     [SerializeField]
     private Transform bobPos;
+
+    // Jump variables
+    bool isGrounded;
+    [SerializeField] private float jumpForce = 5f;
+    bool applyDownwardForce;
+    Rigidbody2D rb;
 
     [SerializeField] private Image attack1, attack2, attack3;
 
@@ -98,13 +104,17 @@ public class RobBasics : MonoBehaviour
         EventBus<BobRespawnEvent>.Deregister(bobRespawnEvent);
         EventBus<WeatherChanged>.Deregister(weatherChangedEventBinding);
     }
-
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     // Start is called before the first frame update
     void Start()
     {
         health = startingHealth;
         moveSpd = startingMoveSpeed;
         //moveSpd = 2;
+        isGrounded = true;
         isAttacking = false;
         animator = gameObject.GetComponent<Animator>();
 
@@ -124,6 +134,12 @@ public class RobBasics : MonoBehaviour
     void Update()
     {
         InputCheck();
+    }
+    private void FixedUpdate()
+    {
+        // If is in the air, bring Rob back down! 
+        if (!isGrounded && rb.velocity.y < 9.8f) applyDownwardForce = true;
+        if (applyDownwardForce) rb.velocity -= Vector2.up * 0.16f;
     }
 
     //Health function. Called from Bob's script.
@@ -155,7 +171,7 @@ public class RobBasics : MonoBehaviour
         {
             animator.ResetTrigger("trRun");
             animator.SetTrigger("trIdle");
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            rb.velocity = new Vector2(0f, rb.velocity.y);
             return;
         }
 
@@ -164,7 +180,7 @@ public class RobBasics : MonoBehaviour
         {
             transform.localScale = new Vector2(1.5f, 1.5f);
             animator.SetTrigger("trRun");
-            GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpd, 0);
+            rb.velocity = new Vector2(-moveSpd, rb.velocity.y);
         }
 
         //move right
@@ -172,7 +188,7 @@ public class RobBasics : MonoBehaviour
         {
             animator.SetTrigger("trRun");
             transform.localScale = new Vector2(-1.5f, 1.5f);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpd, 0);
+            rb.velocity = new Vector2(moveSpd, rb.velocity.y);
         }
 
         //stop left
@@ -180,7 +196,7 @@ public class RobBasics : MonoBehaviour
         {
             animator.ResetTrigger("trRun");
             animator.SetTrigger("trIdle");
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            rb.velocity = new Vector2(0f, rb.velocity.y);
         }
 
         //stop right
@@ -188,7 +204,7 @@ public class RobBasics : MonoBehaviour
         {
             animator.ResetTrigger("trRun");
             animator.SetTrigger("trIdle");
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            rb.velocity = rb.velocity = new Vector2(0f, rb.velocity.y);
         }
 
         //attack 1
@@ -200,8 +216,21 @@ public class RobBasics : MonoBehaviour
             AttackImageAnimaiton(attacks[MELEE].totalActionTime, 1);
         }
 
+        // Check if grounded by raycasting downward and seeing if the ground is getting hit
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, -transform.up, 3f, LayerMask.GetMask("Ground"));
+        if (hit) { isGrounded = true; applyDownwardForce = false; }
+        else isGrounded = false;
+
+        // Jump
+        if(Input.GetKeyUp(KeyCode.Space) && isGrounded)
+        {
+            isGrounded = false;
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+
         // If Bob is not inside of the arena, cannot use AOE attacks. 
         if (bobPos.position.x < -12f) return;
+
         //attack 2
         if (Input.GetKeyUp(KeyCode.Alpha2))
         {

@@ -949,11 +949,6 @@ Transform:
   - {fileID: 1684329867}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &841357302 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3622673147349476841, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-  m_PrefabInstance: {fileID: 1460903451}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &877348751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1510,27 +1505,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
   m_PrefabInstance: {fileID: 1460903451}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841357302}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 850e4da268aee5242973324dae9878e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1352029232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841357302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a3b93ebfe393e43a009344f12c3b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  verticalMoveAmt: 30
-  moveTime: 0.1
-  scaleAmt: 1.1
 --- !u!1 &1397880414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1632,18 +1612,6 @@ PrefabInstance:
       value: Rob
       objectReference: {fileID: 0}
     - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5162
-      objectReference: {fileID: 0}
-    - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5162
-      objectReference: {fileID: 0}
-    - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5162
-      objectReference: {fileID: 0}
-    - target: {fileID: 6266705992093272880, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.25
       objectReference: {fileID: 0}
@@ -1699,53 +1667,10 @@ PrefabInstance:
       propertyPath: attack3
       value: 
       objectReference: {fileID: 2109743897}
-    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: hellfire
-      value: 
-      objectReference: {fileID: 5382946394922975642, guid: 33905fdf8488d524895af23e00d0ce7b, type: 3}
-    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: speedScalar
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: startingMoveSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: attacks.Array.data[2].hasInfluence
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: attacks.Array.data[0].timeBeforeHit
-      value: 0.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: attacks.Array.data[1].timeBeforeHit
-      value: 1.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: attacks.Array.data[2].timeBeforeHit
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: attacks.Array.data[0].totalActionTime
-      value: 0.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: attacks.Array.data[1].totalActionTime
-      value: 1.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6508760035733855887, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      propertyPath: attacks.Array.data[2].totalActionTime
-      value: 0.9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3622673147349476841, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1352029232}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe7de8a1653b0b34fb2e08a67c9745a4, type: 3}
 --- !u!1001 &1525797117
 PrefabInstance:
