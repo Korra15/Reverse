@@ -200,6 +200,8 @@ public class RobBasics : MonoBehaviour
             AttackImageAnimaiton(attacks[MELEE].totalActionTime, 1);
         }
 
+        // If Bob is not inside of the arena, cannot use AOE attacks. 
+        if (bobPos.position.x < -12f) return;
         //attack 2
         if (Input.GetKeyUp(KeyCode.Alpha2))
         {

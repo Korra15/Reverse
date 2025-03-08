@@ -17,8 +17,9 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 dirToRob = this.transform.position - rob.transform.position;
-        transform.position += dirToRob * arrowSpeed * Time.deltaTime;
+        Vector3 dirToRob = rob.transform.position - this.transform.position;
+        dirToRob = new Vector3(dirToRob.x, 0f, 0f);
+        transform.position += dirToRob.normalized * arrowSpeed * Time.deltaTime;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
