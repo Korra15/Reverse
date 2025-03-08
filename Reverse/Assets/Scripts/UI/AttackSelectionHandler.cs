@@ -12,23 +12,40 @@ public class AttackSelectionHandler : MonoBehaviour
     private Vector3 startScale;
     private Image currentAttackIcon = null;
 
-    public IEnumerator MoveCard(Image attac1kIcon, Image attack2Icon, Image attack3Icon, float duration, bool startingAnim, int attackNum)
+    RobBasics robScript;
+    [SerializeField] Image meteorIcon;
+    [SerializeField] Image hellfireIcon;
+    private void Awake()
+    {
+        robScript = FindObjectOfType<RobBasics>();
+    }
+
+    private void Update()
+    {
+        if(robScript.CanUseMeteor()) meteorIcon.color = Color.white;
+        else meteorIcon.color = Color.black;
+
+        if (robScript.CanUseHellfire()) hellfireIcon.color = Color.white;
+        else hellfireIcon.color = Color.black;
+    }
+
+    public IEnumerator MoveCard(Image attack1Icon, Image attack2Icon, Image attack3Icon, float duration, bool startingAnim, int attackNum)
     {
         switch (attackNum)
         {
             case 1:
-                currentAttackIcon = attac1kIcon;
+                currentAttackIcon = attack1Icon;
                 attack2Icon.color = Color.grey;
                 attack3Icon.color = Color.grey;
                 break;
             case 2:
                 currentAttackIcon = attack2Icon;
-                attac1kIcon.color = Color.grey;
+                attack1Icon.color = Color.grey;
                 attack3Icon.color = Color.grey;
                 break;
             case 3:
                 currentAttackIcon = attack3Icon;
-                attac1kIcon.color = Color.grey;
+                attack1Icon.color = Color.grey;
                 attack2Icon.color = Color.grey;
                 break;
         }
@@ -70,7 +87,7 @@ public class AttackSelectionHandler : MonoBehaviour
             yield return new WaitForSeconds(duration);
 
             //Reset all for when the attack is over
-            attac1kIcon.color = Color.white;
+            attack1Icon.color = Color.white;
             attack2Icon.color = Color.white;
             attack3Icon.color = Color.white;
             currentAttackIcon.transform.localPosition = startPos;

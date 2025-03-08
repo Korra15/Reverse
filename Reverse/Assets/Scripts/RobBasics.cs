@@ -64,6 +64,13 @@ public class RobBasics : MonoBehaviour
     private EventBinding<BobRespawnEvent> bobRespawnEvent;
     private EventBinding<WeatherChanged> weatherChangedEventBinding;
 
+    // Cooldown timers
+    [Header("Cooldowns")]
+    [SerializeField] float meteorAttackCooldown = 2f;
+    [SerializeField] float hellfireAttackCooldown = 3f;
+    float meteorTimer;
+    float hellfireTimer;
+
     /// <summary>
     /// Reset Robs health on bob respawn
     /// </summary>
@@ -117,6 +124,8 @@ public class RobBasics : MonoBehaviour
         isGrounded = true;
         isAttacking = false;
         animator = gameObject.GetComponent<Animator>();
+        meteorTimer = Mathf.Infinity;
+        hellfireTimer = Mathf.Infinity;
 
         foreach (Attack attack in attacks)
         {
@@ -134,12 +143,32 @@ public class RobBasics : MonoBehaviour
     void Update()
     {
         InputCheck();
+        UpdateTimers();
     }
     private void FixedUpdate()
     {
         // If is in the air, bring Rob back down! 
         if (!isGrounded && rb.velocity.y < 9.8f) applyDownwardForce = true;
         if (applyDownwardForce) rb.velocity -= Vector2.up * 0.16f;
+    }
+    void UpdateTimers()
+    {
+        meteorTimer += Time.deltaTime;
+        hellfireTimer += Time.deltaTime;
+    }
+    public bool CanUseMeteor()
+    {
+        if (meteorTimer - attacks[RANGED].totalActionTime < meteorAttackCooldown) return false;
+        // If Bob is not inside of the arena, cannot use AOE attacks. 
+        if (bobPos.position.x < -12f) return false;
+        return true;
+    }
+    public bool CanUseHellfire()
+    {
+        if (hellfireTimer - attacks[AOE].totalActionTime < hellfireAttackCooldown) return false;
+        // If Bob is not inside of the arena, cannot use AOE attacks. 
+        if (bobPos.position.x < -12f) return false;
+        return true;
     }
 
     //Health function. Called from Bob's script.
@@ -213,7 +242,7 @@ public class RobBasics : MonoBehaviour
             animator.SetTrigger("trMelee");
             StartCoroutine(ConductAttack(attacks[MELEE]));
             StartCoroutine(EnableCollider(attacks[MELEE]));
-            AttackImageAnimaiton(attacks[MELEE].totalActionTime, 1);
+            AttackImageAnimation(attacks[MELEE].totalActionTime, 1);
         }
 
         // Check if grounded by raycasting downward and seeing if the ground is getting hit
@@ -228,27 +257,32 @@ public class RobBasics : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
 
-        // If Bob is not inside of the arena, cannot use AOE attacks. 
-        if (bobPos.position.x < -12f) return;
-
         //attack 2
         if (Input.GetKeyUp(KeyCode.Alpha2))
         {
+            // If still in cooldown, ignore
+            if (!CanUseMeteor()) return;
+
             animator.SetTrigger("trRanged");
             GameObject rock = GameObject.Instantiate(magnetoRock, rockSpawnPos.position, Quaternion.identity, transform);
             StartCoroutine(ConductAttack(attacks[RANGED]));
             StartCoroutine(EnableCollider(attacks[RANGED]));
-            AttackImageAnimaiton(attacks[RANGED].totalActionTime, 2);
+            AttackImageAnimation(attacks[RANGED].totalActionTime, 2);
+            meteorTimer = 0f;
         }
 
         //attack 3
         if (Input.GetKeyUp(KeyCode.Alpha3))
         {
+            // If still in cooldown, ignore
+            if (!CanUseHellfire()) return;
+
             animator.SetTrigger("trAoe");
             GameObject go = GameObject.Instantiate(hellfire, new Vector3(bobPos.position.x, 0f, 0f), Quaternion.identity);
             StartCoroutine(ConductAttack(attacks[AOE]));
             StartCoroutine(EnableCollider(attacks[AOE]));
-            AttackImageAnimaiton(attacks[AOE].totalActionTime, 3);
+            AttackImageAnimation(attacks[AOE].totalActionTime, 3);
+            hellfireTimer = 0f;
         }
     }
 
@@ -286,7 +320,7 @@ public class RobBasics : MonoBehaviour
     }
 
     ///<summary> Calling this for UI animaiton of selected attack button </summary>
-    private void AttackImageAnimaiton(float attackAnimTime, int attackNum)
+    private void AttackImageAnimation(float attackAnimTime, int attackNum)
     {
         StartCoroutine(gameObject.GetComponent<AttackSelectionHandler>().MoveCard(attack1, attack2, attack3, attackAnimTime, true, attackNum));
     }
