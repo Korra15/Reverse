@@ -538,8 +538,6 @@ GameObject:
   - component: {fileID: 2041003274567294441}
   - component: {fileID: 714176155037783818}
   - component: {fileID: 6345039074439615702}
-  - component: {fileID: 8521825544144531051}
-  - component: {fileID: 2623392762767838574}
   m_Layer: 5
   m_Name: KillCounter
   m_TagString: Untagged
@@ -605,38 +603,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8521825544144531051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1706994438846776807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a3b93ebfe393e43a009344f12c3b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackImageComponent: {fileID: 6345039074439615702}
-  verticalMoveAmt: 30
-  moveTime: 0.1
-  scaleAmt: 1.1
---- !u!114 &2623392762767838574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1706994438846776807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a3b93ebfe393e43a009344f12c3b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackImageComponent: {fileID: 0}
-  verticalMoveAmt: 30
-  moveTime: 0.1
-  scaleAmt: 1.1
 --- !u!1 &1911242116279017095
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1062,6 @@ GameObject:
   - component: {fileID: 4604682498230581915}
   - component: {fileID: 1384922163655548350}
   - component: {fileID: 4743317992714478870}
-  - component: {fileID: 2428167070574939095}
   m_Layer: 5
   m_Name: Attack3
   m_TagString: Untagged
@@ -1163,22 +1128,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2428167070574939095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3043151195979706383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a3b93ebfe393e43a009344f12c3b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackImageComponent: {fileID: 4743317992714478870}
-  verticalMoveAmt: 30
-  moveTime: 0.1
-  scaleAmt: 1.1
 --- !u!1 &4314776725515918155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,7 +1384,6 @@ GameObject:
   - component: {fileID: 8579586301824563947}
   - component: {fileID: 5399185438021403929}
   - component: {fileID: 5501516888738018100}
-  - component: {fileID: 5596257451973735845}
   m_Layer: 5
   m_Name: Attack2
   m_TagString: Untagged
@@ -1502,22 +1450,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5596257451973735845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6605723577332735718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a3b93ebfe393e43a009344f12c3b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackImageComponent: {fileID: 5501516888738018100}
-  verticalMoveAmt: 30
-  moveTime: 0.1
-  scaleAmt: 1.1
 --- !u!1 &6654684974387374492
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,8 +1461,6 @@ GameObject:
   - component: {fileID: 2365256891915065172}
   - component: {fileID: 33321460345379306}
   - component: {fileID: 3965168145852167208}
-  - component: {fileID: 5839713503499374335}
-  - component: {fileID: 7312595506996163318}
   m_Layer: 5
   m_Name: Attack1
   m_TagString: Untagged
@@ -1597,38 +1527,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5839713503499374335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6654684974387374492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a3b93ebfe393e43a009344f12c3b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackImageComponent: {fileID: 3965168145852167208}
-  verticalMoveAmt: 30
-  moveTime: 0.1
-  scaleAmt: 1.1
---- !u!114 &7312595506996163318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6654684974387374492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a3b93ebfe393e43a009344f12c3b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackImageComponent: {fileID: 0}
-  verticalMoveAmt: 30
-  moveTime: 0.1
-  scaleAmt: 1.1
 --- !u!1 &6885353158642843490
 GameObject:
   m_ObjectHideFlags: 0
@@ -2174,7 +2072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a3b93ebfe393e43a009344f12c3b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackImageComponent: {fileID: 0}
   verticalMoveAmt: 30
   moveTime: 0.1
   scaleAmt: 1.1

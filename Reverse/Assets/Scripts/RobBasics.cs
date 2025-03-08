@@ -197,7 +197,7 @@ public class RobBasics : MonoBehaviour
             animator.SetTrigger("trMelee");
             StartCoroutine(ConductAttack(attacks[MELEE]));
             StartCoroutine(EnableCollider(attacks[MELEE]));
-            AttackImageAnimaiton(attack1, attacks[MELEE].totalActionTime);
+            AttackImageAnimaiton(attacks[MELEE].totalActionTime, 1);
         }
 
         //attack 2
@@ -207,7 +207,7 @@ public class RobBasics : MonoBehaviour
             GameObject rock = GameObject.Instantiate(magnetoRock, rockSpawnPos.position, Quaternion.identity, transform);
             StartCoroutine(ConductAttack(attacks[RANGED]));
             StartCoroutine(EnableCollider(attacks[RANGED]));
-            AttackImageAnimaiton(attack2, attacks[RANGED].totalActionTime);
+            AttackImageAnimaiton(attacks[RANGED].totalActionTime, 2);
         }
 
         //attack 3
@@ -217,7 +217,7 @@ public class RobBasics : MonoBehaviour
             GameObject go = GameObject.Instantiate(hellfire, new Vector3(bobPos.position.x, 0f, 0f), Quaternion.identity);
             StartCoroutine(ConductAttack(attacks[AOE]));
             StartCoroutine(EnableCollider(attacks[AOE]));
-            AttackImageAnimaiton(attack3, attacks[AOE].totalActionTime);
+            AttackImageAnimaiton(attacks[AOE].totalActionTime, 3);
         }
     }
 
@@ -255,9 +255,9 @@ public class RobBasics : MonoBehaviour
     }
 
     ///<summary> Calling this for UI animaiton of selected attack button </summary>
-    private void AttackImageAnimaiton(Image attackImage, float attackAnimTime)
+    private void AttackImageAnimaiton(float attackAnimTime, int attackNum)
     {
-        StartCoroutine(attackImage.GetComponent<AttackSelectionHandler>().MoveCard(attackAnimTime, true));
+        StartCoroutine(gameObject.GetComponent<AttackSelectionHandler>().MoveCard(attack1, attack2, attack3, attackAnimTime, true, attackNum));
     }
 }
 
