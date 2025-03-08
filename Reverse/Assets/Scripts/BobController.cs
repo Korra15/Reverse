@@ -567,7 +567,7 @@ public class BobController : MonoBehaviour
 
         // On certain condition, bob tries to conduct attack
         // if he failed due to lack of appropriate weapon, he wants it.
-        if (true)
+        if (UnityEngine.Random.Range(0, 1f) < attackChance)
         {
             // Go through the weapon type (from melee to ranged) to find suitable weapon to attack.
             foreach (Weapon weapon in weapons)
