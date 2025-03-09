@@ -60,6 +60,7 @@ public class BobController : MonoBehaviour
     private Collider2D collider;
     private Rigidbody2D rigidbody;
     private Animator animator;
+    [SerializeField] private Particles deathBoom = default;
 
     [Header("Bob's Drip")]
     [SerializeField] GameObject[] drip;
@@ -701,6 +702,7 @@ public class BobController : MonoBehaviour
 
         isDead = false;
 
+        deathBoom.PlayDeathParticles(new Vector2(transform.position.x, transform.position.y + 2));
         transform.position = respawnPos.position;
         overallFamiliarity = 1;
 
