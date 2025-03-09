@@ -18,6 +18,7 @@ public class BobController : MonoBehaviour
     [SerializeField] private bool isAttacking;
     [SerializeField] private bool isFreeze;
     [SerializeField] private bool isDodging;
+    [SerializeField] private bool isDead;
     [SerializeField] private float health;
     [SerializeField] private float overallFamiliarity;
 
@@ -42,7 +43,11 @@ public class BobController : MonoBehaviour
     [Header("Attack Properties")]
     [SerializeField] private Weapon[] weapons;
     [SerializeField] private float attackDesire;
-    [SerializeField] private float attackCooldown;
+    // Allow bob to try several attempts if failed once.
+    [SerializeField] int maxAttempt = 3;
+    [SerializeField] int currentAttempt = 0;
+    //[SerializeField] private float attackCooldown;
+    [SerializeField] private float attackDesireMult;
     [SerializeField] private float attackTimer;
     private Weapon currentWeapon;
 
@@ -59,9 +64,6 @@ public class BobController : MonoBehaviour
     [Header("Bob's Drip")]
     [SerializeField] GameObject[] drip;
     int dripCounter = -1;
-
-
-
 
     #region EVENT STUFF
     private EventBinding<RobAttackEvent> robAttackEventBinding;
@@ -176,6 +178,7 @@ public class BobController : MonoBehaviour
 
         //    AttackComing(testCollider, attackOccurTimes, attackDurationTemp);
         //}
+
         PrepareAttack();
     }
 
@@ -212,6 +215,10 @@ public class BobController : MonoBehaviour
             else if (attackStatuses[i].isInRange)
             {
                 isInRange = true;
+                isDodging = true;
+            }
+            else
+            {
                 isDodging = true;
             }
         }
@@ -255,7 +262,7 @@ public class BobController : MonoBehaviour
         float dodgeMult = 1;
 
         if (isDodging)
-            dodgeMult = (1 + 12f * (attackStatuses[^1].familiarity - 0.8f)) * overallFamiliarity;
+            dodgeMult = (1 + 16f * (attackStatuses[^1].familiarity - 0.8f)) * overallFamiliarity;
 
         // Limit the speed with multiplier.
         if (rigidbody.velocity.x > maxSpeed * dodgeMult)
@@ -273,7 +280,7 @@ public class BobController : MonoBehaviour
         Vector3 drivingForce = Vector3.zero;
 
         // If Bob's in panic/attacking/animation state, do nothing.
-        if (isFreeze || isAttacking || isInAnimation)
+        if (isDead || isFreeze || isAttacking || isInAnimation)
         {
             return;
         }
@@ -282,11 +289,12 @@ public class BobController : MonoBehaviour
         {
             fleeDirection = Mathf.Sign(dodgeTarget.x - transform.position.x);
 
+            float familiarFactor = (1 - attackStatuses[^1].familiarity);
+
             // Driving force. Will be affected by *overall overallFamiliarity*.
-            drivingForce.x += fleeForceScale * fleeDirection * overallFamiliarity;
-            // Random force to make driving force less efficient. Will be influenced by *attack overallFamiliarity*.
-            float familiarFactor = 5f * (1 - attackStatuses[^1].familiarity);
-            drivingForce.x += randomForceScale * GaussianRandom(0, familiarFactor) * familiarFactor;
+            drivingForce.x += fleeForceScale * fleeDirection * overallFamiliarity * (1 - familiarFactor);
+            // Random force to make driving force less efficient. Will be influenced by *attack Familiarity*.
+            drivingForce.x += randomForceScale * GaussianRandom(0, 5f * familiarFactor) * familiarFactor;
         }
         // If Bob's not in any state, add force towards the desired position (Bob's target).
         else
@@ -440,12 +448,12 @@ public class BobController : MonoBehaviour
 
             // Update the left boundary.
             attackBoundaries[0] =
-                Mathf.Min(attackStatuses[i].collider.bounds.min.x - 2f * collider.bounds.extents.x,
+                Mathf.Min(attackStatuses[i].collider.bounds.min.x - 1.5f * collider.bounds.extents.x,
                 attackBoundaries[0]);
 
             // Update the right boundary.
             attackBoundaries[1] =
-                Mathf.Max(attackStatuses[i].collider.bounds.max.x + 2f * collider.bounds.extents.x,
+                Mathf.Max(attackStatuses[i].collider.bounds.max.x + 1.5f * collider.bounds.extents.x,
                 attackBoundaries[1]);
         }
 
@@ -479,7 +487,7 @@ public class BobController : MonoBehaviour
         float estimateError = (Mathf.Exp(GaussianRandom(0, 10f * (1 - attack.familiarity))) * overallFamiliarity - 0.6f);
         dodgeTarget.x += fleeDirection * dodgeErrorScale * estimateError;
 
-        //Debug.Log("Dodge target: " + dodgeTarget.x);
+        Debug.Log("Dodge target: " + dodgeTarget.x);
 
         // Update dodging state.
         StartCoroutine(UpdateDodgingState(attack));
@@ -532,6 +540,7 @@ public class BobController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator UpdateDodgingState(AttackStatus attack)
     {
+        /*** Bob will freeze when unfamiliar attack comes. ***/
         isFreeze = true;
 
         // Bob will panic to jump when an attack comes.
@@ -540,7 +549,7 @@ public class BobController : MonoBehaviour
 
         // Bob will stay in panic state for a while, depending on his attack overallFamiliarity and overall overallFamiliarity.
         float actualPanicTime = panicTime * 5f * (1 - attack.familiarity);
-        yield return new WaitForSeconds(Mathf.Max(0, GaussianRandom(actualPanicTime, 1 - overallFamiliarity)));
+        yield return new WaitForSeconds(Mathf.Max(0.05f, GaussianRandom(actualPanicTime, 1 - overallFamiliarity)));
 
         isFreeze = false;
     }
@@ -550,20 +559,42 @@ public class BobController : MonoBehaviour
     #region Bob Attack
     private void PrepareAttack()
     {
+        // If bob is attacking and familiar attacks come, he stops his current attack.
+        if (isFreeze &&
+            attackStatuses.Count > 0 &&
+            attackStatuses[^1].familiarity == 1f)
+        {
+            foreach (Weapon weapon in weapons)
+            {
+                StopCoroutine(ConductAttack(weapon));
+            }
+
+            animator.Play("Bob Idle", 0, 0);
+
+            isAttacking = false;
+            return;
+        }
+        // If bob freezes, he cannot do new attacks
+        else if (isFreeze || isDead)
+        {
+            return;
+        }
+
         attackTimer += Time.deltaTime;
 
-        // If attack is not yet ready or bob is in any attack's range, return.
-        if (attackTimer < 0 || isInRange) return;
-
         // When attack is ready, attack chance will grow as time.
-        attackDesire = 0.3f * attackTimer;
+        attackDesire = 0.1f * attackDesireMult * attackTimer;
         float attackChance = (1 - 1f / (1f + AttackDesire)) * Time.deltaTime;
 
         // When in dodging state(not in range), bob's attack chance grow according to familiarity.
         if (isDodging)
         {
-            attackChance *= 1 + 3 * (attackStatuses[^1].familiarity - 0.8f);
+            attackChance *= 1 + 5 * (attackStatuses[^1].familiarity - 0.8f);
+            attackChance += 5 * (attackStatuses[^1].familiarity - 0.8f) * Time.deltaTime;
         }
+
+        // If attack is not yet ready or bob is in any attack's range, return.
+        if (attackTimer < 0 || isInRange) return;
 
         // On certain condition, bob tries to conduct attack
         // if he failed due to lack of appropriate weapon, he wants it.
@@ -581,7 +612,8 @@ public class BobController : MonoBehaviour
                 {
                     Debug.Log("Bob attacked!");
                     StartCoroutine(ConductAttack(weapon));
-                    attackTimer = -attackCooldown;
+                    //attackTimer = -attackCooldown;
+                    currentAttempt = maxAttempt;
                     return;
                 }
                 // If he does not have it, he wants it, also reset cooldown.
@@ -589,10 +621,17 @@ public class BobController : MonoBehaviour
                 {
                     Debug.Log("Bob has no weapon! Bob wants a " + weapon.name + "!");
                     weapon.WantIt();
-                    attackTimer = -0.7f * attackCooldown;
+                    //attackTimer = -0.7f * attackCooldown;
+                    currentAttempt += 1;
                     return;
                 }
             }
+        }
+
+        if (currentAttempt >= maxAttempt)
+        {
+            currentAttempt = 0;
+            attackTimer = 0;
         }
     }
 
@@ -656,17 +695,18 @@ public class BobController : MonoBehaviour
 
     private IEnumerator Killed()
     {
-        isFreeze = true;
+        isDead = true;
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
+
+        isDead = false;
 
         transform.position = respawnPos.position;
         overallFamiliarity = 1;
-        
 
         // Update bob weapons.
-        attackCooldown *= 0.9f;
-        attackTimer = -10f;
+        attackDesireMult += 0.2f;
+        attackTimer = 0f;
 
         foreach (Weapon weapon in weapons)
         {
@@ -676,7 +716,6 @@ public class BobController : MonoBehaviour
         EventBus<BobRespawnEvent>.Raise(new BobRespawnEvent() {
             killCtr = killCtr
         });
-        isFreeze = false;
 
         // Upgrade the drip
         if (dripCounter + 1 < drip.Length) drip[++dripCounter].SetActive(true);
@@ -710,7 +749,7 @@ public class Weapon
 
     public void WantIt()
     {
-        desire += 20;
+        desire += 10;
     }
 
     public void GetWeapon()
@@ -737,13 +776,13 @@ public class AttackStatus
         this.duration = duration;
         familiarity = occurTimes; // Need update
 
-        if (occurTimes >= 3)
+        if (occurTimes >= 4)
         {
             familiarity = 1.0f;
         }
         else if (occurTimes >= 1)
         {
-            familiarity = 0.96f;
+            familiarity = 0.98f;
         }
         else
         {
