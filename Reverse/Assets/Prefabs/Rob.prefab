@@ -202,12 +202,12 @@ MonoBehaviour:
     occurTimes: 0
     hasInfluence: 1
     damage: 0
-    timeBeforeHit: 1.32
-    totalActionTime: 1.32
+    timeBeforeHit: 1.273
+    totalActionTime: 1.273
     collider: {fileID: 2221378267564525537}
   - id: 3
     occurTimes: 0
-    hasInfluence: 0
+    hasInfluence: 1
     damage: 0
     timeBeforeHit: 0.9
     totalActionTime: 0.9
@@ -221,8 +221,6 @@ MonoBehaviour:
   attack1: {fileID: 0}
   attack2: {fileID: 0}
   attack3: {fileID: 0}
-  meteorAttackCooldown: 1
-  hellfireAttackCooldown: 1
 --- !u!212 &4242065923880321316
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -383,8 +381,6 @@ MonoBehaviour:
   verticalMoveAmt: 30
   moveTime: 0.1
   scaleAmt: 1.1
-  meteorIcon: {fileID: 0}
-  hellfireIcon: {fileID: 0}
 --- !u!1 &3766379842510708291
 GameObject:
   m_ObjectHideFlags: 0
